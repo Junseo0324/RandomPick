@@ -8,15 +8,16 @@ import com.devhjs.randompick.core.data.repository.PickRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
     @Provides
     @Singleton
-    fun provideDatabase(appContext: Context): RandomPickDatabase =
+    fun provideDatabase(@ApplicationContext appContext: Context): RandomPickDatabase =
         Room.databaseBuilder(
             appContext,
             RandomPickDatabase::class.java,

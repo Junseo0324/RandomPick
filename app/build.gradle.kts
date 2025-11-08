@@ -1,9 +1,13 @@
 plugins {
+    id("org.jetbrains.kotlin.kapt")
+    alias(libs.plugins.hilt)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.kapt")
-    alias(libs.plugins.hilt)
+}
+
+hilt {
+    enableAggregatingTask = false
 }
 
 android {
@@ -74,9 +78,7 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-
-    // Hilt Navigation (for Compose)
-    implementation(libs.androidx.hilt.navigation.compose)
+    implementation("com.google.dagger:hilt-android:2.52")
+    kapt("com.google.dagger:hilt-compiler:2.52")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }
