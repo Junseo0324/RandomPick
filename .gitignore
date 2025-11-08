@@ -21,6 +21,14 @@ captures/
 *.apk
 *.ap_
 *.aab
+*.aar
+*.dex
+
+app/release/
+app/debug/
+**/release/
+**/debug/
+output-metadata.json
 
 *.jks
 *.keystore
@@ -31,10 +39,6 @@ captures/
 .DS_Store
 Thumbs.db
 
-.gradle/
-build/
-out/
-captures/
 
 *.kotlin_module
 
@@ -52,17 +56,13 @@ fabric.properties
 obj/
 *.so
 
-*.class
-*.dex
-*.apk
-*.ap_
-*.aab
-
-local.properties
-
 *.preview
 compose-reports/
 
 .vscode/
 *.swp
 *.swo
+
+/*.tmp
+*.bak
+*.orig
