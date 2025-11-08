@@ -1,4 +1,4 @@
-package com.devhjs.randompick.navigation
+package com.devhjs.randompick.navigation.data
 
 import androidx.compose.runtime.Composable
 

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.devhjs.randompick.feature.list.ui.ListScreen
 import com.devhjs.randompick.feature.main.ui.MainScreen
+import com.devhjs.randompick.navigation.data.Screen
 
 @Composable
 fun NavGraph(navController: NavHostController) {

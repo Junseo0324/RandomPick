@@ -1,4 +1,4 @@
-package com.devhjs.randompick.navigation
+package com.devhjs.randompick.navigation.data
 
 sealed class Screen(val route: String) {
     object Main : Screen("main")

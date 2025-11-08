@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.devhjs.randompick.navigation.data.BottomNavItem
+import com.devhjs.randompick.navigation.data.Screen
 
 @Composable
 fun BottomNavBar(navController: androidx.navigation.NavHostController) {
