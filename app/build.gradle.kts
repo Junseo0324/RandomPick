@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.devhjs.randompick"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.devhjs.randompick"
@@ -59,18 +59,18 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 
-    // ✨ Compose animation & effects
     implementation("androidx.compose.animation:animation")
     implementation("nl.dionsegijn:konfetti-compose:2.0.5")
     implementation("com.github.skydoves:orbital:0.4.0")
 
-    // 🧠 ViewModel & Coroutine
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
-    // 💾 Room
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    implementation(libs.androidx.navigation.compose)
+
 }
