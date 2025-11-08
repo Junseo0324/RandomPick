@@ -1,6 +1,5 @@
-package com.devhjs.randompick.ui.theme
+package com.devhjs.randompick.core.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
