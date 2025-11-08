@@ -8,35 +8,94 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val LightColorScheme = lightColorScheme(
+    primary = Primary,
+    onPrimary = Color.White,
+    primaryContainer = PrimaryLight,
+    onPrimaryContainer = PrimaryDark,
+
+    secondary = Secondary,
+    onSecondary = Color.White,
+    secondaryContainer = SecondaryLight,
+    onSecondaryContainer = SecondaryDark,
+
+    tertiary = AccentPurple,
+    onTertiary = Color.White,
+    tertiaryContainer = AccentBlue,
+    onTertiaryContainer = PrimaryDark,
+
+    background = LightBackground,
+    onBackground = LightOnBackground,
+
+    surface = LightSurface,
+    onSurface = LightOnSurface,
+    surfaceVariant = LightSurfaceVariant,
+    onSurfaceVariant = LightOnSurfaceVariant,
+
+    error = Error,
+    onError = Color.White,
+    errorContainer = Color(0xFFFEE2E2),
+    onErrorContainer = Color(0xFF7F1D1D),
+
+    outline = LightCardBorder,
+    outlineVariant = LightDivider,
+
+    surfaceTint = Primary,
+    inverseSurface = Gray800,
+    inverseOnSurface = Gray100,
+    inversePrimary = PrimaryLight,
+
+    scrim = Color.Black.copy(alpha = 0.5f)
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+private val DarkColorScheme = darkColorScheme(
+    primary = PrimaryLight,
+    onPrimary = PrimaryDark,
+    primaryContainer = PrimaryDark,
+    onPrimaryContainer = PrimaryLight,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
+    secondary = SecondaryLight,
+    onSecondary = SecondaryDark,
+    secondaryContainer = SecondaryDark,
+    onSecondaryContainer = SecondaryLight,
+
+    tertiary = AccentBlue,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    tertiaryContainer = PrimaryDark,
+    onTertiaryContainer = AccentBlue,
+
+    background = DarkBackground,
+    onBackground = DarkOnBackground,
+
+    surface = DarkSurface,
+    onSurface = DarkOnSurface,
+    surfaceVariant = DarkSurfaceVariant,
+    onSurfaceVariant = DarkOnSurfaceVariant,
+
+    error = AccentRed,
+    onError = Color.White,
+    errorContainer = Color(0xFF7F1D1D),
+    onErrorContainer = Color(0xFFFEE2E2),
+
+    outline = DarkCardBorder,
+    outlineVariant = DarkDivider,
+
+    surfaceTint = PrimaryLight,
+    inverseSurface = Gray100,
+    inverseOnSurface = Gray800,
+    inversePrimary = Primary,
+
+    scrim = Color.Black.copy(alpha = 0.7f)
 )
 
 @Composable
 fun RandomPickTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -44,7 +103,6 @@ fun RandomPickTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
