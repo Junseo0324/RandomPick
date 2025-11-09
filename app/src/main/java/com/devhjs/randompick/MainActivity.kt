@@ -12,7 +12,9 @@ import androidx.navigation.compose.rememberNavController
 import com.devhjs.randompick.core.ui.theme.RandomPickTheme
 import com.devhjs.randompick.navigation.BottomNavBar
 import com.devhjs.randompick.navigation.NavGraph
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
