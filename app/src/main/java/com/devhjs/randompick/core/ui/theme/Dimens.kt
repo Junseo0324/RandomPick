@@ -1,7 +1,6 @@
 package com.devhjs.randompick.core.ui.theme
 
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 /**
  * 앱 전반에 걸쳐 사용되는 표준 크기(Dimension) 값을 정의하는 객체입니다.
@@ -40,9 +39,4 @@ object Dimens {
     val cardElevation = 2.dp
     val bottomNavElevation = 8.dp
 
-    val fontSizeSmall = 12.sp
-    val fontSizeMedium = 14.sp
-    val fontSizeLarge = 16.sp
-    val fontSizeExtraLarge = 18.sp
-    val fontSizeDialogTitle = 20.sp
 }
