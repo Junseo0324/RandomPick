@@ -27,7 +27,7 @@ class PickRepository @Inject constructor(
 
 
     suspend fun deleteList(list: PickList) {
-        dao.deleteItemsByListId(list.id)
+        dao.deleteItemsByListId(list.id ?: 0)
         dao.deleteList(list.toEntity())
     }
 
