@@ -1,4 +1,4 @@
-package com.devhjs.randompick.core.theme
+package com.devhjs.randompick.core.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

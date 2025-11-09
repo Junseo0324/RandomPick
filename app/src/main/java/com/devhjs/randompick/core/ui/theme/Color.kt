@@ -1,4 +1,4 @@
-package com.devhjs.randompick.core.theme
+package com.devhjs.randompick.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
