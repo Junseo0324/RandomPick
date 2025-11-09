@@ -2,11 +2,6 @@ package com.devhjs.randompick.core.ui.theme
 
 import androidx.compose.ui.unit.dp
 
-/**
- * 앱 전반에 걸쳐 사용되는 표준 크기(Dimension) 값을 정의하는 객체입니다.
- * 변수명은 Kotlin 컨벤션에 따라 'camelCase'를 사용합니다.
- */
-
 object Dimens {
 
     val spacingTiny = 4.dp
@@ -27,7 +22,6 @@ object Dimens {
     val iconSizeMedium = 24.dp
     val fabSize = 56.dp
     val itemRowNumberSize = 40.dp
-    val rouletteAreaSize = 280.dp
 
 
 

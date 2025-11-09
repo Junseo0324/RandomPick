@@ -12,81 +12,81 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val LightColorScheme = lightColorScheme(
-    primary = Primary,
+    primary = SeedPrimary,
     onPrimary = Color.White,
-    primaryContainer = PrimaryLight,
-    onPrimaryContainer = PrimaryDark,
+    primaryContainer = SeedPrimaryLight,
+    onPrimaryContainer = SeedPrimaryDark,
 
-    secondary = Secondary,
+    secondary = SeedSecondary,
     onSecondary = Color.White,
-    secondaryContainer = SecondaryLight,
-    onSecondaryContainer = SecondaryDark,
+    secondaryContainer = SeedSecondaryLight,
+    onSecondaryContainer = SeedSecondaryDark,
 
-    tertiary = AccentPurple,
+    tertiary = Color(0xFF8B5CF6),
     onTertiary = Color.White,
-    tertiaryContainer = AccentBlue,
-    onTertiaryContainer = PrimaryDark,
+    tertiaryContainer = SeedInfo,
+    onTertiaryContainer = SeedPrimaryDark,
 
-    background = LightBackground,
-    onBackground = LightOnBackground,
+    background = LightBackgroundBase,
+    onBackground = Color(0xFF1C1B1F),
 
-    surface = LightSurface,
-    onSurface = LightOnSurface,
-    surfaceVariant = LightSurfaceVariant,
-    onSurfaceVariant = LightOnSurfaceVariant,
+    surface = Color.White,
+    onSurface = Color(0xFF1C1B1F),
+    surfaceVariant = Color(0xFFF5F5F5),
+    onSurfaceVariant = Gray500,
 
-    error = Error,
+    error = SeedError,
     onError = Color.White,
     errorContainer = Color(0xFFFEE2E2),
     onErrorContainer = Color(0xFF7F1D1D),
 
-    outline = LightCardBorder,
-    outlineVariant = LightDivider,
+    outline = Color(0xFFE5E7EB),
+    outlineVariant = Color(0xFFD1D5DB),
 
-    surfaceTint = Primary,
+    surfaceTint = SeedPrimary,
     inverseSurface = Gray800,
     inverseOnSurface = Gray100,
-    inversePrimary = PrimaryLight,
+    inversePrimary = SeedPrimaryLight,
 
     scrim = Color.Black.copy(alpha = 0.5f)
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryLight,
-    onPrimary = PrimaryDark,
-    primaryContainer = PrimaryDark,
-    onPrimaryContainer = PrimaryLight,
+    primary = SeedPrimaryLight,
+    onPrimary = SeedPrimaryDark,
+    primaryContainer = SeedPrimaryDark,
+    onPrimaryContainer = SeedPrimaryLight,
 
-    secondary = SecondaryLight,
-    onSecondary = SecondaryDark,
-    secondaryContainer = SecondaryDark,
-    onSecondaryContainer = SecondaryLight,
+    secondary = SeedSecondaryLight,
+    onSecondary = SeedSecondaryDark,
+    secondaryContainer = SeedSecondaryDark,
+    onSecondaryContainer = SeedSecondaryLight,
 
-    tertiary = AccentBlue,
+    tertiary = SeedInfo,
     onTertiary = Color.White,
-    tertiaryContainer = PrimaryDark,
-    onTertiaryContainer = AccentBlue,
+    tertiaryContainer = SeedPrimaryDark,
+    onTertiaryContainer = SeedInfo,
 
-    background = DarkBackground,
-    onBackground = DarkOnBackground,
+    background = DarkBackgroundBase,
+    onBackground = Color(0xFFE5E5E5),
 
-    surface = DarkSurface,
-    onSurface = DarkOnSurface,
-    surfaceVariant = DarkSurfaceVariant,
-    onSurfaceVariant = DarkOnSurfaceVariant,
+    surface = DarkSurfaceBase,
+    onSurface = Color(0xFFE5E5E5),
+    surfaceVariant = Color(0xFF2C2C2C),
+    onSurfaceVariant = Gray400,
 
-    error = AccentRed,
+    error = SeedError,
     onError = Color.White,
     errorContainer = Color(0xFF7F1D1D),
     onErrorContainer = Color(0xFFFEE2E2),
 
-    outline = DarkCardBorder,
-    outlineVariant = DarkDivider,
+    outline = Color(0xFF374151),
+    outlineVariant = Color(0xFF374151),
 
-    surfaceTint = PrimaryLight,
+    surfaceTint = SeedPrimaryLight,
     inverseSurface = Gray100,
     inverseOnSurface = Gray800,
-    inversePrimary = Primary,
+    inversePrimary = SeedPrimary,
 
     scrim = Color.Black.copy(alpha = 0.7f)
 )
