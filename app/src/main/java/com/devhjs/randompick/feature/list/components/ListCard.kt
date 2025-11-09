@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.devhjs.randompick.core.ui.theme.Dimens
-import com.devhjs.randompick.feature.list.ui.FoodList
+import com.devhjs.randompick.feature.main.ui.FoodList
 
 @Composable
 fun ListCard(
