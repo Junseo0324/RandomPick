@@ -30,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -51,7 +52,7 @@ fun EditListBottomSheet(
     if (list == null) return
 
     var listTitle by remember { mutableStateOf(list.title) }
-    var items by remember { mutableStateOf(list.items.toMutableList()) }
+    val items = remember { mutableStateListOf<PickItem>().apply { addAll(list.items) } }
     var newItemText by remember { mutableStateOf("") }
 
     ModalBottomSheet(
