@@ -8,33 +8,36 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.devhjs.randompick.core.model.PickList
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.core.ui.theme.RandomPickTheme
+import com.devhjs.randompick.feature.list.ListViewModel
 import com.devhjs.randompick.feature.list.components.EditListBottomSheet
 import com.devhjs.randompick.feature.list.components.ListCard
-import com.devhjs.randompick.feature.main.ui.FoodList
 
 @Composable
 fun ListScreen() {
-    var showSheet by remember { mutableStateOf(false) }
-    var selectedList by remember { mutableStateOf<FoodList?>(null) }
+    val viewModel: ListViewModel = hiltViewModel()
 
-    val foodLists = remember {
-        mutableStateListOf(
-            FoodList("점심 메뉴", mutableListOf("김치찌개", "햄버거", "라면", "피자", "만두")),
-            FoodList("저녁 메뉴", mutableListOf("치킨", "족발", "회", "삼겹살"))
-        )
+    val lists by viewModel.lists.collectAsState()
+    var showSheet by remember { mutableStateOf(false) }
+    var selectedList by remember { mutableStateOf<PickList?>(null) }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadLists()
     }
     Column(
         modifier = Modifier
@@ -49,7 +52,7 @@ fun ListScreen() {
                 .padding(Dimens.screenPadding),
             verticalArrangement = Arrangement.spacedBy(Dimens.spacingLarge)
         ) {
-            itemsIndexed(foodLists) { index, list ->
+            items(lists) { list ->
                 ListCard(
                     list = list,
                     onClick = {
@@ -68,13 +71,7 @@ fun ListScreen() {
                 showSheet = false
                 selectedList = null
             },
-            onSave = { updated ->
-                val idx = foodLists.indexOfFirst { it.name == selectedList?.name }
-                if (idx != -1) foodLists[idx] = updated else foodLists.add(updated)
-            },
-            onDelete = {
-                foodLists.remove(selectedList)
-            }
+           viewModel = viewModel
         )
     }
 }

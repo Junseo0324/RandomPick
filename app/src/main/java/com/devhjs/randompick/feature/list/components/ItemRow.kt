@@ -16,12 +16,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.devhjs.randompick.core.model.PickItem
 import com.devhjs.randompick.core.ui.theme.Dimens
 
 
 @Composable
 fun ItemRow(
-    text: String,
+    item: PickItem,
     onDelete: () -> Unit
 ) {
     Row(
@@ -36,7 +37,7 @@ fun ItemRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = text,
+            text = item.name,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f)

@@ -36,20 +36,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.devhjs.randompick.core.model.PickItem
+import com.devhjs.randompick.core.model.PickList
 import com.devhjs.randompick.core.ui.theme.Dimens
-import com.devhjs.randompick.feature.main.ui.FoodList
+import com.devhjs.randompick.feature.list.ListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditListBottomSheet(
-    list: FoodList?,
+    list: PickList?,
     onDismiss: () -> Unit,
-    onSave: (FoodList) -> Unit,
-    onDelete: () -> Unit
+    viewModel: ListViewModel
 ) {
     if (list == null) return
 
-    var listName by remember { mutableStateOf(list.name) }
+    var listTitle by remember { mutableStateOf(list.title) }
     var items by remember { mutableStateOf(list.items.toMutableList()) }
     var newItemText by remember { mutableStateOf("") }
 
@@ -58,7 +59,10 @@ fun EditListBottomSheet(
         sheetState = rememberModalBottomSheetState(
             skipPartiallyExpanded = true
         ),
-        shape = RoundedCornerShape(topStart = Dimens.spacingExtraLarge, topEnd = Dimens.spacingExtraLarge),
+        shape = RoundedCornerShape(
+            topStart = Dimens.spacingExtraLarge,
+            topEnd = Dimens.spacingExtraLarge
+        ),
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
         Column(
@@ -78,8 +82,8 @@ fun EditListBottomSheet(
             Spacer(Modifier.height(Dimens.spacingLarge))
 
             OutlinedTextField(
-                value = listName,
-                onValueChange = { listName = it },
+                value = listTitle,
+                onValueChange = { listTitle = it },
                 label = { Text("리스트 이름") },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -99,7 +103,10 @@ fun EditListBottomSheet(
                 verticalArrangement = Arrangement.spacedBy(Dimens.spacingSmall)
             ) {
                 itemsIndexed(items) { index, item ->
-                    ItemRow(item) { items.removeAt(index) }
+                    ItemRow(item = item) {
+                        items.removeAt(index)
+                        viewModel.deleteItem(item)
+                    }
                 }
             }
 
@@ -117,7 +124,9 @@ fun EditListBottomSheet(
                 )
                 IconButton(onClick = {
                     if (newItemText.isNotBlank()) {
-                        items.add(newItemText)
+                        val newItem = PickItem(listId = list.id ?: 0, name = newItemText)
+                        items.add(newItem)
+                        viewModel.addItem(list.id ?: 0, newItemText)
                         newItemText = ""
                     }
                 }) {
@@ -129,7 +138,8 @@ fun EditListBottomSheet(
 
             Button(
                 onClick = {
-                    onSave(FoodList(listName, items))
+                    val updatedList = list.copy(title = listTitle, items = items)
+                    viewModel.updateList(updatedList)
                     onDismiss()
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -144,19 +154,17 @@ fun EditListBottomSheet(
                 Text("취소")
             }
 
-            if (list.name.isNotBlank()) {
-                OutlinedButton(
-                    onClick = {
-                        onDelete()
-                        onDismiss()
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) {
-                    Icon(Icons.Default.Delete, contentDescription = null)
-                    Spacer(Modifier.width(Dimens.spacingTiny))
-                    Text("삭제")
-                }
+            OutlinedButton(
+                onClick = {
+                    viewModel.deleteList(list)
+                    onDismiss()
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+            ) {
+                Icon(Icons.Default.Delete, contentDescription = null)
+                Spacer(Modifier.width(Dimens.spacingTiny))
+                Text("삭제")
             }
         }
     }
