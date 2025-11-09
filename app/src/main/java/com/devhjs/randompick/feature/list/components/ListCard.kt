@@ -20,12 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.devhjs.randompick.core.model.PickList
 import com.devhjs.randompick.core.ui.theme.Dimens
-import com.devhjs.randompick.feature.main.ui.FoodList
 
 @Composable
 fun ListCard(
-    list: FoodList,
+    list: PickList,
     onClick: () -> Unit
 ) {
     Surface(
@@ -47,7 +47,7 @@ fun ListCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = list.name,
+                        text = list.title,
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold
                         ),
@@ -67,7 +67,7 @@ fun ListCard(
                 ) {
                     list.items.take(3).forEach { item ->
                         Text(
-                            item,
+                            text = item.name,
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
