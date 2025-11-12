@@ -28,14 +28,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.devhjs.randompick.core.model.PickList
 import com.devhjs.randompick.core.ui.theme.Dimens
-import com.devhjs.randompick.feature.main.ui.FoodList
 
 
 @Composable
 fun ListDropdown(
-    currentList: FoodList,
-    allLists: List<FoodList>,
+    currentList: PickList,
+    allLists: List<PickList>,
     isExpanded: Boolean,
     onExpandChange: (Boolean) -> Unit,
     onListSelected: (Int) -> Unit
@@ -61,7 +61,7 @@ fun ListDropdown(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "${currentList.name} (${currentList.items.size}개)",
+                    "${currentList.title} (${currentList.items.size}개)",
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -100,7 +100,7 @@ fun ListDropdown(
                         ) {
                             Column {
                                 Text(
-                                    list.name,
+                                    list.title,
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
@@ -115,7 +115,7 @@ fun ListDropdown(
                                 ) {
                                     list.items.take(3).forEach { item ->
                                         Text(
-                                            item,
+                                            item.name,
                                             style = MaterialTheme.typography.labelSmall,
                                             color = MaterialTheme.colorScheme.onPrimary,
                                             modifier = Modifier
