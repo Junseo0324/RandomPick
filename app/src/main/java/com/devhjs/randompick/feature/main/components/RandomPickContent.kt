@@ -36,7 +36,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devhjs.randompick.core.ui.theme.Dimens
-import com.devhjs.randompick.feature.main.ui.ItemCard
 import kotlinx.coroutines.launch
 
 @Composable

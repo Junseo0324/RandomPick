@@ -65,7 +65,8 @@ fun ListScreen() {
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .fillMaxSize().padding(innerPadding)
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
             Header("내 리스트", "리스트를 관리하세요")
 
@@ -115,7 +116,6 @@ fun ListScreen() {
         )
     }
 }
-
 
 
 @Preview(
