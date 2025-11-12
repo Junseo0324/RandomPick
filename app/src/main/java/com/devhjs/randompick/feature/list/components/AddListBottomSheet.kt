@@ -30,8 +30,9 @@ fun AddListBottomSheet(
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        sheetState = sheetState
-    ) {
+        sheetState = sheetState,
+        containerColor = MaterialTheme.colorScheme.surface,
+        ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
