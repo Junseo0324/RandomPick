@@ -67,7 +67,7 @@ fun RandomPickContent(items: List<String>) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.15f)
+                .weight(0.1f)
                 .clipToBounds()
                 .background(
                     MaterialTheme.colorScheme.primaryContainer,
