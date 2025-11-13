@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.feature.main.MainViewModel
@@ -27,9 +28,12 @@ import com.devhjs.randompick.feature.main.components.ListDropdownSheet
 import com.devhjs.randompick.feature.main.components.RandomPickContent
 import com.devhjs.randompick.feature.main.components.RouletteContent
 import com.devhjs.randompick.feature.main.components.TabSelector
+import com.devhjs.randompick.navigation.data.Screen
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    navController: NavController
+) {
     val viewModel: MainViewModel = hiltViewModel()
     val lists by viewModel.lists.collectAsState()
 
@@ -91,7 +95,13 @@ fun MainScreen() {
             Spacer(modifier = Modifier.height(Dimens.spacingExtraLarge))
 
             when (selectedTab) {
-                0 -> RouletteContent(currentList.items.map { it.name })
+                0 -> RouletteContent(
+                    currentList.items.map { it.name },
+                    onAddItemClick = {
+                        navController.navigate(Screen.List.route)
+                    }
+                )
+
                 1 -> RandomPickContent(currentList.items.map { it.name })
             }
         }

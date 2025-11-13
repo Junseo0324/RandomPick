@@ -11,7 +11,7 @@ import com.devhjs.randompick.navigation.data.Screen
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.Main.route) {
-        composable(Screen.Main.route) { MainScreen() }
+        composable(Screen.Main.route) { MainScreen(navController) }
         composable(Screen.List.route) { ListScreen() }
     }
 }
