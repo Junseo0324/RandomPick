@@ -45,39 +45,6 @@ fun RouletteContent(
 ) {
     Crossfade(targetState = items.isEmpty(), label = "RouletteEmptyState") { isEmpty ->
         if (isEmpty) {
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(Dimens.screenPadding),
-//                horizontalAlignment = Alignment.CenterHorizontally,
-//                verticalArrangement = Arrangement.Center
-//            ) {
-//                Text(
-//                    text = "항목이 없습니다 🎲",
-//                    style = MaterialTheme.typography.titleLarge,
-//                    color = MaterialTheme.colorScheme.onSurface
-//                )
-//                Spacer(modifier = Modifier.height(Dimens.spacingMedium))
-//                Text(
-//                    text = "리스트에 항목을 추가해주세요!",
-//                    style = MaterialTheme.typography.bodyMedium,
-//                    color = MaterialTheme.colorScheme.onSurfaceVariant
-//                )
-//                Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-//                Button(
-//                    onClick = { onAddItemClick?.invoke() },
-//                    colors = ButtonDefaults.buttonColors(
-//                        containerColor = MaterialTheme.colorScheme.primary
-//                    ),
-//                    shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
-//                ) {
-//                    Text(
-//                        text = "항목 추가하기",
-//                        color = MaterialTheme.colorScheme.onPrimary,
-//                        style = MaterialTheme.typography.titleMedium
-//                    )
-//                }
-//            }
             EmptyPickContent(onAddItemClick = onAddItemClick)
         } else {
             var isSpinning by remember { mutableStateOf(false) }
