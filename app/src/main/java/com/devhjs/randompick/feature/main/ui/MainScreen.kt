@@ -102,7 +102,12 @@ fun MainScreen(
                     }
                 )
 
-                1 -> RandomPickContent(currentList.items.map { it.name })
+                1 -> RandomPickContent(
+                    currentList.items.map { it.name },
+                    onAddItemClick = {
+                        navController.navigate(Screen.List.route)
+                    }
+                )
             }
         }
     }

@@ -39,108 +39,115 @@ import com.devhjs.randompick.core.ui.theme.Dimens
 import kotlinx.coroutines.launch
 
 @Composable
-fun RandomPickContent(items: List<String>) {
-    var isPicking by remember { mutableStateOf(false) }
-    var currentItem by remember { mutableStateOf(items.firstOrNull() ?: "") }
-    var finalItem by remember { mutableStateOf<String?>(null) }
+fun RandomPickContent(
+    items: List<String>,
+    onAddItemClick: (() -> Unit)? = null
+) {
+    if (items.isEmpty()) {
+        EmptyPickContent(onAddItemClick = onAddItemClick)
+    } else {
+        var isPicking by remember { mutableStateOf(false) }
+        var currentItem by remember { mutableStateOf(items.firstOrNull() ?: "") }
+        var finalItem by remember { mutableStateOf<String?>(null) }
 
-    val scope = rememberCoroutineScope()
-    val offsetY = remember { Animatable(0f) }
+        val scope = rememberCoroutineScope()
+        val offsetY = remember { Animatable(0f) }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.5f),
-            verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            items(items) { item ->
-                ItemCard(text = item)
-            }
-        }
-
-        Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.1f)
-                .clipToBounds()
-                .background(
-                    MaterialTheme.colorScheme.primaryContainer,
-                    RoundedCornerShape(Dimens.cornerRadiusLarge)
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = when {
-                    isPicking -> currentItem
-                    finalItem != null -> finalItem ?: ""
-                    else -> "결과를 기다리는 중..."
-                },
-                modifier = Modifier.offset(y = offsetY.value.dp),
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
-                color = Color.White
-            )
-        }
-
-        Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-
-        Button(
-            onClick = {
-                if (items.isNotEmpty() && !isPicking) {
-                    isPicking = true
-                    finalItem = null
-                    scope.launch {
-                        val totalDuration = 2500L
-                        val startTime = System.currentTimeMillis()
-
-                        while (true) {
-                            val elapsed = System.currentTimeMillis() - startTime
-                            val fraction = (elapsed / totalDuration.toFloat()).coerceIn(0f, 1f)
-                            val speed = (1f - fraction).coerceAtLeast(0.05f)
-
-                            currentItem = items.random()
-                            offsetY.snapTo(-100f)
-                            offsetY.animateTo(
-                                targetValue = 0f,
-                                animationSpec = tween(
-                                    durationMillis = (60L + 100L * fraction).toInt(),
-                                    easing = LinearEasing
-                                )
-                            )
-
-                            kotlinx.coroutines.delay((20L + 40L * speed).toLong())
-                            if (fraction >= 1f) break
-                        }
-
-                        finalItem = items.random()
-                        isPicking = false
-                    }
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(0.5f),
+                verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
+            ) {
+                items(items) { item ->
+                    ItemCard(text = item)
                 }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(Dimens.buttonHeight),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            ),
-            shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
-        ) {
-            Icon(
-                Icons.Default.Refresh,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimary
-            )
-            Spacer(modifier = Modifier.width(Dimens.spacingSmall))
-            Text(
-                text = if (isPicking) "돌아가는 중..." else "랜덤 선택",
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
+            }
+
+            Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(0.1f)
+                    .clipToBounds()
+                    .background(
+                        MaterialTheme.colorScheme.primaryContainer,
+                        RoundedCornerShape(Dimens.cornerRadiusLarge)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = when {
+                        isPicking -> currentItem
+                        finalItem != null -> finalItem ?: ""
+                        else -> "결과를 기다리는 중..."
+                    },
+                    modifier = Modifier.offset(y = offsetY.value.dp),
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
+                    color = Color.White
+                )
+            }
+
+            Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+
+            Button(
+                onClick = {
+                    if (items.isNotEmpty() && !isPicking) {
+                        isPicking = true
+                        finalItem = null
+                        scope.launch {
+                            val totalDuration = 2500L
+                            val startTime = System.currentTimeMillis()
+
+                            while (true) {
+                                val elapsed = System.currentTimeMillis() - startTime
+                                val fraction = (elapsed / totalDuration.toFloat()).coerceIn(0f, 1f)
+                                val speed = (1f - fraction).coerceAtLeast(0.05f)
+
+                                currentItem = items.random()
+                                offsetY.snapTo(-100f)
+                                offsetY.animateTo(
+                                    targetValue = 0f,
+                                    animationSpec = tween(
+                                        durationMillis = (60L + 100L * fraction).toInt(),
+                                        easing = LinearEasing
+                                    )
+                                )
+
+                                kotlinx.coroutines.delay((20L + 40L * speed).toLong())
+                                if (fraction >= 1f) break
+                            }
+
+                            finalItem = items.random()
+                            isPicking = false
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Dimens.buttonHeight),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
+                shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
+            ) {
+                Icon(
+                    Icons.Default.Refresh,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+                Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+                Text(
+                    text = if (isPicking) "돌아가는 중..." else "랜덤 선택",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
     }
 }

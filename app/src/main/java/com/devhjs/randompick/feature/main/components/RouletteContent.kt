@@ -4,7 +4,6 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -47,39 +45,40 @@ fun RouletteContent(
 ) {
     Crossfade(targetState = items.isEmpty(), label = "RouletteEmptyState") { isEmpty ->
         if (isEmpty) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Dimens.screenPadding),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "항목이 없습니다 🎲",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.height(Dimens.spacingMedium))
-                Text(
-                    text = "리스트에 항목을 추가해주세요!",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-                Button(
-                    onClick = { onAddItemClick?.invoke() },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    ),
-                    shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
-                ) {
-                    Text(
-                        text = "항목 추가하기",
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
-            }
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(Dimens.screenPadding),
+//                horizontalAlignment = Alignment.CenterHorizontally,
+//                verticalArrangement = Arrangement.Center
+//            ) {
+//                Text(
+//                    text = "항목이 없습니다 🎲",
+//                    style = MaterialTheme.typography.titleLarge,
+//                    color = MaterialTheme.colorScheme.onSurface
+//                )
+//                Spacer(modifier = Modifier.height(Dimens.spacingMedium))
+//                Text(
+//                    text = "리스트에 항목을 추가해주세요!",
+//                    style = MaterialTheme.typography.bodyMedium,
+//                    color = MaterialTheme.colorScheme.onSurfaceVariant
+//                )
+//                Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+//                Button(
+//                    onClick = { onAddItemClick?.invoke() },
+//                    colors = ButtonDefaults.buttonColors(
+//                        containerColor = MaterialTheme.colorScheme.primary
+//                    ),
+//                    shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
+//                ) {
+//                    Text(
+//                        text = "항목 추가하기",
+//                        color = MaterialTheme.colorScheme.onPrimary,
+//                        style = MaterialTheme.typography.titleMedium
+//                    )
+//                }
+//            }
+            EmptyPickContent(onAddItemClick = onAddItemClick)
         } else {
             var isSpinning by remember { mutableStateOf(false) }
             var selectedItem by remember { mutableStateOf<String?>(null) }
