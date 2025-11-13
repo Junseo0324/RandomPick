@@ -3,7 +3,6 @@ package com.devhjs.randompick.feature.list.ui
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -66,7 +65,6 @@ fun ListScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-//                .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
             Header("내 리스트", "리스트를 관리하세요")
@@ -76,7 +74,6 @@ fun ListScreen() {
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(horizontal = Dimens.spacingSmall),
-                verticalArrangement = Arrangement.spacedBy(Dimens.spacingLarge)
             ) {
                 items(lists) { list ->
                     ListCard(

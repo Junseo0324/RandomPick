@@ -31,7 +31,8 @@ fun ListCard(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .clickable(onClick = onClick)
+            .padding(vertical = Dimens.spacingSmall),
         shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = Dimens.cardElevation

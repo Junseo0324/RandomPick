@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -70,11 +69,7 @@ fun MainScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    MaterialTheme.colorScheme.surface,
-                    RoundedCornerShape(
-                        topStart = Dimens.spacingExtraLarge,
-                        topEnd = Dimens.spacingExtraLarge
-                    )
+                    MaterialTheme.colorScheme.surface
                 )
                 .padding(Dimens.screenPadding)
         ) {
