@@ -185,13 +185,18 @@ fun RouletteContent(
                 AlertDialog(
                     onDismissRequest = { showDialog = false },
                     confirmButton = {
-                        Button(
-                            onClick = { showDialog = false },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary
-                            )
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
                         ) {
-                            Text("확인", color = MaterialTheme.colorScheme.onPrimary)
+                            Button(
+                                onClick = { showDialog = false },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary
+                                )
+                            ) {
+                                Text("확인", color = MaterialTheme.colorScheme.onPrimary)
+                            }
                         }
                     },
                     title = {
