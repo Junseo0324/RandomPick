@@ -61,7 +61,7 @@ fun ListScreen() {
                 Icon(Icons.Default.Add, contentDescription = "리스트 추가")
             }
         },
-        floatingActionButtonPosition = FabPosition.EndOverlay
+        floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
         Column(
             modifier = Modifier
