@@ -24,7 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.feature.main.MainViewModel
-import com.devhjs.randompick.feature.main.components.ListDropdown
+import com.devhjs.randompick.feature.main.components.ListDropdownSheet
 import com.devhjs.randompick.feature.main.components.RandomPickContent
 import com.devhjs.randompick.feature.main.components.RouletteContent
 import com.devhjs.randompick.feature.main.components.TabSelector
@@ -82,14 +82,11 @@ fun MainScreen() {
             )
 
             Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-            ListDropdown(
+            ListDropdownSheet(
                 currentList = currentList,
                 allLists = lists,
-                isExpanded = isListExpanded,
-                onExpandChange = { isListExpanded = it },
                 onListSelected = { index ->
                     selectedListIndex = index
-                    isListExpanded = false
                 }
             )
 
