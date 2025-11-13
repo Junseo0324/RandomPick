@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.feature.main.MainViewModel
 import com.devhjs.randompick.feature.main.components.ListDropdown
@@ -62,8 +63,7 @@ fun MainScreen() {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-
+        Header("랜덤픽", "선택 장애? 랜덤 해결!")
         Column(
             modifier = Modifier
                 .fillMaxSize()
