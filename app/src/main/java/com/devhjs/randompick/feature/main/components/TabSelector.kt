@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.devhjs.randompick.core.ui.theme.Dimens
 
@@ -29,7 +28,7 @@ fun TabSelector(selectedTab: Int, onTabSelected: (Int) -> Unit) {
                 shape = RoundedCornerShape(Dimens.cornerRadiusLarge)
             )
             .background(
-                color = Color.White,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(Dimens.cornerRadiusLarge)
             )
             .padding(4.dp)
