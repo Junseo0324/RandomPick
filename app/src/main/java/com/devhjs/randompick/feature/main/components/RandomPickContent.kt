@@ -1,9 +1,13 @@
 package com.devhjs.randompick.feature.main.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +38,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devhjs.randompick.core.ui.theme.Dimens
@@ -49,57 +54,81 @@ fun RandomPickContent(
         var isPicking by remember { mutableStateOf(false) }
         var currentItem by remember { mutableStateOf(items.firstOrNull() ?: "") }
         var finalItem by remember { mutableStateOf<String?>(null) }
+        var hasPickedOnce by remember { mutableStateOf(false) }
+
+        LaunchedEffect(items) {
+            hasPickedOnce = false
+            finalItem = null
+        }
 
         val scope = rememberCoroutineScope()
         val offsetY = remember { Animatable(0f) }
 
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(0.5f),
-                verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
-            ) {
-                items(items) { item ->
-                    ItemCard(text = item)
-                }
-            }
-
-            Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.1f)
-                    .clipToBounds()
+                    .weight(1f)
+                    .border(
+                        width = 2.dp,
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
+                    )
                     .background(
-                        MaterialTheme.colorScheme.primaryContainer,
-                        RoundedCornerShape(Dimens.cornerRadiusLarge)
-                    ),
-                contentAlignment = Alignment.Center
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
+                    )
             ) {
-                Text(
-                    text = when {
-                        isPicking -> currentItem
-                        finalItem != null -> finalItem ?: ""
-                        else -> "결과를 기다리는 중..."
-                    },
-                    modifier = Modifier.offset(y = offsetY.value.dp),
-                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
-                    color = Color.White
-                )
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(Dimens.spacingMedium),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
+                ) {
+                    items(items) { item ->
+                        ItemCard(text = item)
+                    }
+                }
             }
 
-            Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+            AnimatedVisibility(
+                visible = hasPickedOnce || isPicking,
+                enter = fadeIn(animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(300))
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                        .clipToBounds()
+                        .background(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            RoundedCornerShape(Dimens.cornerRadiusLarge)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = when {
+                            isPicking -> currentItem
+                            finalItem != null -> finalItem ?: ""
+                            else -> ""
+                        },
+                        modifier = Modifier.offset(y = offsetY.value.dp),
+                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
 
             Button(
                 onClick = {
                     if (items.isNotEmpty() && !isPicking) {
                         isPicking = true
                         finalItem = null
+                        hasPickedOnce = true
                         scope.launch {
                             val totalDuration = 2500L
                             val startTime = System.currentTimeMillis()
