@@ -15,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,7 +38,6 @@ fun MainScreen() {
     }
     var selectedTab by remember { mutableIntStateOf(0) }
     var selectedListIndex by remember { mutableIntStateOf(0) }
-    var isListExpanded by remember { mutableStateOf(false) }
 
     if (lists.isEmpty()) {
         Column(
