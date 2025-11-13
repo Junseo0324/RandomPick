@@ -4,6 +4,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +55,10 @@ fun RouletteContent(
             val rotation = remember { Animatable(0f) }
             val scope = rememberCoroutineScope()
 
+            LaunchedEffect(items) {
+                selectedItem = null
+            }
+
             val colors = remember {
                 listOf(
                     Color(0xFFEF5350),
@@ -70,7 +76,8 @@ fun RouletteContent(
 
             Column(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
             ) {
                 Box(
                     modifier = Modifier
@@ -106,16 +113,21 @@ fun RouletteContent(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(Dimens.spacingDoubleExtraLarge))
+                Spacer(modifier = Modifier.weight(1f))
 
-                if (selectedItem != null) {
-                    Text(
-                        text = "선택: $selectedItem",
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.height(Dimens.spacingMedium))
-                }
+//                AnimatedVisibility(
+//                    visible = selectedItem != null,
+//                    enter = fadeIn(animationSpec = tween(300)),
+//                    exit = fadeOut(animationSpec = tween(300))
+//                ) {
+//                    Text(
+//                        text = "$selectedItem",
+//                        style = MaterialTheme.typography.headlineSmall,
+//                        color = MaterialTheme.colorScheme.primary,
+//                        fontWeight = FontWeight.Bold
+//                    )
+//                }
+
 
                 Button(
                     onClick = {
