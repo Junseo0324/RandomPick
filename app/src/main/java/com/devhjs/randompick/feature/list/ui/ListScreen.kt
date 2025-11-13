@@ -61,20 +61,19 @@ fun ListScreen() {
                 Icon(Icons.Default.Add, contentDescription = "리스트 추가")
             }
         },
-        floatingActionButtonPosition = FabPosition.End
+        floatingActionButtonPosition = FabPosition.EndOverlay
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding.calculateTopPadding())
         ) {
             Header("내 리스트", "리스트를 관리하세요")
 
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(Dimens.screenPadding),
+                    .background(MaterialTheme.colorScheme.background),
                 verticalArrangement = Arrangement.spacedBy(Dimens.spacingLarge)
             ) {
                 items(lists) { list ->
