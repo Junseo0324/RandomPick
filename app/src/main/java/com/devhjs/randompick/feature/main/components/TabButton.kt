@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.devhjs.randompick.core.ui.theme.Dimens
 
 @Composable
@@ -31,10 +30,7 @@ fun TabButton(
             else
                 MaterialTheme.colorScheme.onSurfaceVariant
         ),
-        shape = RoundedCornerShape(Dimens.cornerRadiusMedium),
-        elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = if (isSelected) 0.dp else Dimens.cardElevation
-        )
+        shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
     ) {
         Text(text, style = MaterialTheme.typography.bodyLarge)
     }
