@@ -72,66 +72,71 @@ fun EditListBottomSheet(
                 .fillMaxHeight()
                 .padding(Dimens.dialogPadding)
                 .navigationBarsPadding()
-                .imePadding()
         ) {
-            Text(
-                text = "리스트 편집",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onSurface
-            )
-
-            Spacer(Modifier.height(Dimens.spacingLarge))
-
-            OutlinedTextField(
-                value = listTitle,
-                onValueChange = { listTitle = it },
-                label = { Text("리스트 이름") },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(Modifier.height(Dimens.spacingMedium))
-
-            Text(
-                text = "항목 (${items.size}개)",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-
-            LazyColumn(
+            Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(vertical = Dimens.spacingSmall),
-                verticalArrangement = Arrangement.spacedBy(Dimens.spacingSmall)
+                    .imePadding()     // 키보드 영향을 받을 부분만 여기에!
             ) {
-                itemsIndexed(items) { index, item ->
-                    ItemRow(item = item) {
-                        items.removeAt(index)
-                        viewModel.deleteItem(item)
+                Text(
+                    text = "리스트 편집",
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
+                Spacer(Modifier.height(Dimens.spacingLarge))
+
+                OutlinedTextField(
+                    value = listTitle,
+                    onValueChange = { listTitle = it },
+                    label = { Text("리스트 이름") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(Modifier.height(Dimens.spacingMedium))
+
+                Text(
+                    text = "항목 (${items.size}개)",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = Dimens.spacingSmall),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.spacingSmall)
+                ) {
+                    itemsIndexed(items) { index, item ->
+                        ItemRow(item = item) {
+                            items.removeAt(index)
+                            viewModel.deleteItem(item)
+                        }
                     }
                 }
-            }
 
-            Spacer(Modifier.height(Dimens.spacingMedium))
+                Spacer(Modifier.height(Dimens.spacingMedium))
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(Dimens.spacingSmall),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                OutlinedTextField(
-                    value = newItemText,
-                    onValueChange = { newItemText = it },
-                    placeholder = { Text("새 항목 입력") },
-                    modifier = Modifier.weight(1f)
-                )
-                IconButton(onClick = {
-                    if (newItemText.isNotBlank()) {
-                        val newItem = PickItem(listId = list.id ?: 0, name = newItemText)
-                        items.add(newItem)
-                        viewModel.addItem(list.id ?: 0, newItemText)
-                        newItemText = ""
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Dimens.spacingSmall),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    OutlinedTextField(
+                        value = newItemText,
+                        onValueChange = { newItemText = it },
+                        placeholder = { Text("새 항목 입력") },
+                        modifier = Modifier.weight(1f)
+                    )
+                    IconButton(onClick = {
+                        if (newItemText.isNotBlank()) {
+                            val newItem = PickItem(listId = list.id ?: 0, name = newItemText)
+                            items.add(newItem)
+                            viewModel.addItem(list.id ?: 0, newItemText)
+                            newItemText = ""
+                        }
+                    }) {
+                        Icon(Icons.Default.Add, contentDescription = "추가")
                     }
-                }) {
-                    Icon(Icons.Default.Add, contentDescription = "추가")
                 }
             }
 
