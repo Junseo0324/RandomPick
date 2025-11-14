@@ -118,7 +118,7 @@ fun RandomPickContent(
                         },
                         modifier = Modifier.offset(y = offsetY.value.dp),
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
