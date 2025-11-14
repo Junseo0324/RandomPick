@@ -13,8 +13,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import com.devhjs.randompick.core.ui.theme.Dimens
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,6 +31,15 @@ fun AddListBottomSheet(
     onAddClick: () -> Unit
 ) {
     if (!showBottomSheet) return
+
+    val focusRequester = remember { androidx.compose.ui.focus.FocusRequester() }
+
+    LaunchedEffect(showBottomSheet) {
+        if (showBottomSheet) {
+            delay(150)
+            focusRequester.requestFocus()
+        }
+    }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -48,7 +61,9 @@ fun AddListBottomSheet(
                 onValueChange = onTitleChange,
                 label = { Text("리스트 이름") },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester)
             )
             Spacer(modifier = Modifier.height(Dimens.spacingExtraLarge))
             Button(
