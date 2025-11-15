@@ -1,6 +1,5 @@
 package com.devhjs.randompick.feature.main.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
@@ -9,9 +8,12 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
 @Composable
-fun BannerAdView(adUnitId: String) {
+fun BannerAdView(
+    adUnitId: String,
+    modifier: Modifier = Modifier
+) {
     AndroidView(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         factory = { context ->
             AdView(context).apply {
                 setAdSize(AdSize.BANNER)

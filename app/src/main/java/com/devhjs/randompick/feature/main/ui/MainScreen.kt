@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -18,11 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.feature.main.MainViewModel
+import com.devhjs.randompick.feature.main.components.BannerAdView
 import com.devhjs.randompick.feature.main.components.ListDropdownSheet
 import com.devhjs.randompick.feature.main.components.RandomPickContent
 import com.devhjs.randompick.feature.main.components.RouletteContent
@@ -89,21 +92,33 @@ fun MainScreen(
 
             Spacer(modifier = Modifier.height(Dimens.spacingExtraLarge))
 
-            when (selectedTab) {
-                0 -> RouletteContent(
-                    currentList.items.map { it.name },
-                    onAddItemClick = {
-                        navController.navigate(Screen.List.route)
-                    }
-                )
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                when (selectedTab) {
+                    0 -> RouletteContent(
+                        currentList.items.map { it.name },
+                        onAddItemClick = {
+                            navController.navigate(Screen.List.route)
+                        }
+                    )
 
-                1 -> RandomPickContent(
-                    currentList.items.map { it.name },
-                    onAddItemClick = {
-                        navController.navigate(Screen.List.route)
-                    }
-                )
+                    1 -> RandomPickContent(
+                        currentList.items.map { it.name },
+                        onAddItemClick = {
+                            navController.navigate(Screen.List.route)
+                        }
+                    )
+                }
             }
+
+            Spacer(modifier = Modifier.height(Dimens.spacingMedium))
+            BannerAdView(
+                adUnitId = "ca-app-pub-3940256099942544/6300978111",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            )
         }
     }
 }
