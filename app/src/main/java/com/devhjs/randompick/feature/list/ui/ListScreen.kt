@@ -5,6 +5,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -35,6 +36,7 @@ import com.devhjs.randompick.feature.list.ListViewModel
 import com.devhjs.randompick.feature.list.components.AddListBottomSheet
 import com.devhjs.randompick.feature.list.components.EditListBottomSheet
 import com.devhjs.randompick.feature.list.components.ListCard
+import com.devhjs.randompick.feature.main.components.BannerAdView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,7 +75,8 @@ fun ListScreen() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(horizontal = Dimens.spacingSmall),
+                    .padding(horizontal = Dimens.spacingSmall)
+                    .weight(1f),
             ) {
                 items(lists) { list ->
                     ListCard(
@@ -84,6 +87,15 @@ fun ListScreen() {
                         }
                     )
                 }
+            }
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                BannerAdView(
+                    adUnitId = "ca-app-pub-3940256099942544/6300978111",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
             }
         }
 

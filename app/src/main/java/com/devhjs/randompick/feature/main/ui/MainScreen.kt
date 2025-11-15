@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.devhjs.randompick.core.ui.componenets.Header
@@ -112,12 +111,11 @@ fun MainScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(Dimens.spacingMedium))
+            Spacer(modifier = Modifier.height(Dimens.spacingSmall))
             BannerAdView(
                 adUnitId = "ca-app-pub-3940256099942544/6300978111",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
             )
         }
     }
