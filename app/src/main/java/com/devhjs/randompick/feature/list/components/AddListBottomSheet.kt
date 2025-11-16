@@ -61,6 +61,7 @@ fun AddListBottomSheet(
                 onValueChange = onTitleChange,
                 label = { Text("리스트 이름") },
                 singleLine = true,
+                maxLines = 1,
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(focusRequester)

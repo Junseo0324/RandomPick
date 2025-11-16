@@ -82,9 +82,9 @@ class ListViewModel @Inject constructor(
         }
     }
 
-    fun sendMaxItemMessage() {
+    fun sendMessage(message: String) {
         viewModelScope.launch {
-            _eventFlow.emit(ListEvent.ShowMessage("항목은 최대 ${MAX_ITEMS}개까지 추가할 수 있습니다."))
+            _eventFlow.emit(ListEvent.ShowMessage(message))
         }
     }
 }
