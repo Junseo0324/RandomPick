@@ -9,6 +9,8 @@ import com.devhjs.randompick.core.model.PickList
 import javax.inject.Inject
 import javax.inject.Singleton
 
+const val MAX_ITEMS = 10
+
 @Singleton
 class PickRepository @Inject constructor(
     private val dao: PickDao
@@ -35,8 +37,17 @@ class PickRepository @Inject constructor(
     suspend fun getItemsByListId(listId: Int): List<PickItem> =
         dao.getItemsByListId(listId).map { it.toModel() }
 
-    suspend fun insertItem(item: PickItem) =
-        dao.insertItem(item.toEntity())
+    suspend fun insertItem(item: PickItem): Boolean {
+        val count = dao.getItemCountByListId(item.listId)
+
+        return if (count < MAX_ITEMS) {
+            dao.insertItem(item.toEntity())
+            true
+        } else {
+            false
+        }
+
+    }
 
     suspend fun updateItem(item: PickItem) =
         dao.updateItem(item.toEntity())

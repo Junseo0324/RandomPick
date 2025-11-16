@@ -2,6 +2,7 @@ package com.devhjs.randompick.feature.list.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,8 +27,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devhjs.randompick.core.model.ListEvent
 import com.devhjs.randompick.core.model.PickList
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
@@ -49,10 +52,18 @@ fun ListScreen() {
     var showBottomSheet by remember { mutableStateOf(false) }
     var newListTitle by remember { mutableStateOf("") }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.loadLists()
+        viewModel.eventFlow.collect { event ->
+            when (event) {
+                is ListEvent.ShowMessage -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
     }
     Scaffold(
         floatingActionButton = {

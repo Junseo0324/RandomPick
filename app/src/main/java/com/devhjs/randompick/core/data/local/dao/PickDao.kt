@@ -43,4 +43,8 @@ interface PickDao {
     // 리스트 삭제 시 아이템 다 삭제
     @Query("DELETE FROM pick_item WHERE listId = :listId")
     suspend fun deleteItemsByListId(listId: Int)
+
+    @Query("SELECT COUNT(*) FROM pick_item WHERE listId = :listId")
+    suspend fun getItemCountByListId(listId: Int): Int
+
 }

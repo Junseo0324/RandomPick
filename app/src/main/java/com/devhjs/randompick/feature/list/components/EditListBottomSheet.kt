@@ -76,7 +76,7 @@ fun EditListBottomSheet(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .imePadding()     // 키보드 영향을 받을 부분만 여기에!
+                    .imePadding()
             ) {
                 Text(
                     text = "리스트 편집",
@@ -129,6 +129,10 @@ fun EditListBottomSheet(
                     )
                     IconButton(onClick = {
                         if (newItemText.isNotBlank()) {
+                            if (items.size >= 10) {
+                                viewModel.sendMaxItemMessage()
+                                return@IconButton
+                            }
                             val newItem = PickItem(listId = list.id ?: 0, name = newItemText)
                             items.add(newItem)
                             viewModel.addItem(list.id ?: 0, newItemText)
