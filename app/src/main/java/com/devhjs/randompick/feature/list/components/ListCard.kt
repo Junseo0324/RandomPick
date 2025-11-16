@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import com.devhjs.randompick.core.model.PickList
 import com.devhjs.randompick.core.ui.theme.Dimens
 
@@ -71,6 +72,8 @@ fun ListCard(
                             text = item.name,
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.primary,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier
                                 .background(
                                     color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
@@ -84,6 +87,8 @@ fun ListCard(
                             "+${list.items.size - 3}개",
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier
                                 .background(
                                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
