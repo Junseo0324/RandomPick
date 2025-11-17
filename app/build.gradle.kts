@@ -19,6 +19,7 @@ if (localPropertiesFile.exists()) {
 }
 
 val adMobRealId = localProperties.getProperty("ADMOB_REAL_ID") ?: ""
+val adMobAppId = localProperties.getProperty("ADMOB_APP_ID") ?: ""
 
 android {
     namespace = "com.devhjs.randompick"
@@ -32,6 +33,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders["adMobAppId"] = adMobAppId
     }
 
     buildTypes {
