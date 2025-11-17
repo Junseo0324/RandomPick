@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.devhjs.randompick.BuildConfig
 import com.devhjs.randompick.core.model.ListEvent
 import com.devhjs.randompick.core.model.PickList
 import com.devhjs.randompick.core.ui.componenets.Header
@@ -103,7 +104,7 @@ fun ListScreen() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 BannerAdView(
-                    adUnitId = "ca-app-pub-3940256099942544/6300978111",
+                    adUnitId = BuildConfig.AD_UNIT_ID,
                     modifier = Modifier
                         .fillMaxWidth()
                 )

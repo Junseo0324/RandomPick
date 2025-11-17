@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.devhjs.randompick.BuildConfig
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.feature.main.MainViewModel
@@ -113,7 +114,7 @@ fun MainScreen(
 
             Spacer(modifier = Modifier.height(Dimens.spacingSmall))
             BannerAdView(
-                adUnitId = "ca-app-pub-3940256099942544/6300978111",
+                adUnitId = BuildConfig.AD_UNIT_ID,
                 modifier = Modifier
                     .fillMaxWidth()
             )
