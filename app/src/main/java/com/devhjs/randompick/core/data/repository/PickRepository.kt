@@ -33,10 +33,6 @@ class PickRepository @Inject constructor(
         dao.deleteList(list.toEntity())
     }
 
-    // Item
-    suspend fun getItemsByListId(listId: Int): List<PickItem> =
-        dao.getItemsByListId(listId).map { it.toModel() }
-
     suspend fun insertItem(item: PickItem): Boolean {
         val count = dao.getItemCountByListId(item.listId)
 
