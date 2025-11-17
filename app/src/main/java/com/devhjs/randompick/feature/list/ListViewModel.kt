@@ -68,12 +68,6 @@ class ListViewModel @Inject constructor(
         }
     }
 
-    fun updateItem(item: PickItem) {
-        viewModelScope.launch {
-            repository.updateItem(item)
-            loadLists()
-        }
-    }
 
     fun deleteItem(item: PickItem) {
         viewModelScope.launch {
