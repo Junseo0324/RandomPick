@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("org.jetbrains.kotlin.kapt")
     alias(libs.plugins.hilt)
@@ -9,6 +11,14 @@ plugins {
 hilt {
     enableAggregatingTask = false
 }
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
+val adMobRealId = localProperties.getProperty("ADMOB_REAL_ID") ?: ""
 
 android {
     namespace = "com.devhjs.randompick"
@@ -25,7 +35,13 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("debug") {
+            buildConfigField("String", "AD_UNIT_ID", "\"ca-app-pub-3940256099942544/6300978111\"")
+        }
+
+        getByName("release") {
+            buildConfigField("String", "AD_UNIT_ID", "\"$adMobRealId\"")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -41,6 +57,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
