@@ -21,3 +21,18 @@ val Gray800 = Color(0xFF1F2937)
 val LightBackgroundBase = Color(0xFFFAFAFA)
 val DarkBackgroundBase = Color(0xFF121212)
 val DarkSurfaceBase = Color(0xFF1E1E1E)
+
+val DarkBackground = Color(0xFF0E0E0E)
+
+val DarkSurface = Color(0xFF1C1C1E)
+val DarkSurfaceVariant = Color(0xFF2F3033)
+
+val DarkPrimary = Color(0xFFA8C7FA)
+val DarkOnPrimary = Color(0xFF003369)
+
+val DarkSecondary = Color(0xFF7FD4C1)
+val DarkOnSecondary = Color(0xFF00382E)
+
+val DarkTextPrimary = Color(0xFFE3E3E3)
+val DarkTextSecondary = Color(0xFFC4C7C5)
+val DarkOutline = Color(0xFF444746)

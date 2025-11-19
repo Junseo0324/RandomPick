@@ -52,44 +52,33 @@ private val LightColorScheme = lightColorScheme(
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = SeedPrimaryLight,
-    onPrimary = SeedPrimaryDark,
-    primaryContainer = SeedPrimaryDark,
-    onPrimaryContainer = SeedPrimaryLight,
+    primary = DarkPrimary,
+    onPrimary = DarkOnPrimary,
+    primaryContainer = Color(0xFF004A94),
+    onPrimaryContainer = Color(0xFFD6E3FF),
 
-    secondary = SeedSecondaryLight,
-    onSecondary = SeedSecondaryDark,
-    secondaryContainer = SeedSecondaryDark,
-    onSecondaryContainer = SeedSecondaryLight,
+    secondary = DarkSecondary,
+    onSecondary = DarkOnSecondary,
+    secondaryContainer = Color(0xFF005043),
+    onSecondaryContainer = Color(0xFF9CF3D9),
 
-    tertiary = SeedInfo,
-    onTertiary = Color.White,
-    tertiaryContainer = SeedPrimaryDark,
-    onTertiaryContainer = SeedInfo,
+    background = DarkBackground,
+    onBackground = DarkTextPrimary,
 
-    background = DarkBackgroundBase,
-    onBackground = Color(0xFFE5E5E5),
+    surface = DarkSurface,
+    onSurface = DarkTextPrimary,
 
-    surface = DarkSurfaceBase,
-    onSurface = Color(0xFFE5E5E5),
-    surfaceVariant = Color(0xFF2C2C2C),
-    onSurfaceVariant = Gray400,
+    surfaceVariant = DarkSurfaceVariant,
+    onSurfaceVariant = DarkTextSecondary,
 
-    error = SeedError,
-    onError = Color.White,
-    errorContainer = Color(0xFF7F1D1D),
-    onErrorContainer = Color(0xFFFEE2E2),
+    error = Color(0xFFF2B8B5),
+    onError = Color(0xFF601410),
 
-    outline = Color(0xFF374151),
-    outlineVariant = Color(0xFF374151),
-
-    surfaceTint = SeedPrimaryLight,
-    inverseSurface = Gray100,
-    inverseOnSurface = Gray800,
-    inversePrimary = SeedPrimary,
-
-    scrim = Color.Black.copy(alpha = 0.7f)
+    outline = DarkOutline,
+    outlineVariant = Color(0xFF444746)
 )
+
+
 
 @Composable
 fun RandomPickTheme(
