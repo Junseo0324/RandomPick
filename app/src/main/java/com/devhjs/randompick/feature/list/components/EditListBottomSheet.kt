@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -36,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import com.devhjs.randompick.core.data.repository.MAX_ITEMS
 import com.devhjs.randompick.core.model.PickItem
@@ -57,6 +60,8 @@ fun EditListBottomSheet(
     var listTitle by remember { mutableStateOf(list.title) }
     val items = remember { mutableStateListOf<PickItem>().apply { addAll(list.items) } }
     var newItemText by remember { mutableStateOf("") }
+
+    val isKeyboardOpen = WindowInsets.ime.getBottom(LocalDensity.current) > 0
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -157,35 +162,37 @@ fun EditListBottomSheet(
 
             Spacer(Modifier.height(Dimens.spacingLarge))
 
-            Button(
-                onClick = {
-                    val updatedList = list.copy(title = listTitle, items = items)
-                    viewModel.updateList(updatedList)
-                    onDismiss()
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("저장")
-            }
+            if (!isKeyboardOpen) {
+                Button(
+                    onClick = {
+                        val updatedList = list.copy(title = listTitle, items = items)
+                        viewModel.updateList(updatedList)
+                        onDismiss()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("저장")
+                }
 
-            OutlinedButton(
-                onClick = onDismiss,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("취소")
-            }
+                OutlinedButton(
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("취소")
+                }
 
-            OutlinedButton(
-                onClick = {
-                    viewModel.deleteList(list)
-                    onDismiss()
-                },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
-            ) {
-                Icon(Icons.Default.Delete, contentDescription = null)
-                Spacer(Modifier.width(Dimens.spacingTiny))
-                Text("삭제")
+                OutlinedButton(
+                    onClick = {
+                        viewModel.deleteList(list)
+                        onDismiss()
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Icon(Icons.Default.Delete, contentDescription = null)
+                    Spacer(Modifier.width(Dimens.spacingTiny))
+                    Text("삭제")
+                }
             }
         }
     }
