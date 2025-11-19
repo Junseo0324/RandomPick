@@ -115,20 +115,6 @@ fun RouletteContent(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-//                AnimatedVisibility(
-//                    visible = selectedItem != null,
-//                    enter = fadeIn(animationSpec = tween(300)),
-//                    exit = fadeOut(animationSpec = tween(300))
-//                ) {
-//                    Text(
-//                        text = "$selectedItem",
-//                        style = MaterialTheme.typography.headlineSmall,
-//                        color = MaterialTheme.colorScheme.primary,
-//                        fontWeight = FontWeight.Bold
-//                    )
-//                }
-
-
                 Button(
                     onClick = {
                         if (!isSpinning) {
