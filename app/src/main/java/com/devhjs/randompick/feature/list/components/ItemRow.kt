@@ -29,7 +29,7 @@ fun ItemRow(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                 RoundedCornerShape(Dimens.spacingSmall)
             )
             .padding(horizontal = Dimens.spacingLarge, vertical = Dimens.spacingMedium),
