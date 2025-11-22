@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.devhjs.randompick.BuildConfig
 import com.devhjs.randompick.core.ui.componenets.Header
+import com.devhjs.randompick.core.ui.componenets.LoadingContent
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.feature.main.MainViewModel
 import com.devhjs.randompick.feature.main.components.BannerAdView
@@ -37,79 +38,86 @@ fun MainScreen(
     val viewModel: MainViewModel = hiltViewModel()
     val lists by viewModel.lists.collectAsState()
 
+    val isLoading by viewModel.isLoading.collectAsState()
+
     LaunchedEffect(Unit) {
         viewModel.loadLists()
     }
     var selectedTab by remember { mutableIntStateOf(0) }
     var selectedListIndex by remember { mutableIntStateOf(0) }
 
-    if (lists.isEmpty()) {
-        EmptyPickContent(
-            message = "리스트를 추가해주세요!",
-            buttonText = "리스트 만들러 가기",
-            onAddItemClick = {
-                navController.navigate(Screen.List.route)
-            }
-        )
+    when {
+        isLoading -> {
+            LoadingContent()
+        }
+        lists.isEmpty() -> {
+            EmptyPickContent(
+                message = "리스트를 추가해주세요!",
+                buttonText = "리스트 만들러 가기",
+                onAddItemClick = {
+                    navController.navigate(Screen.List.route)
+                }
+            )
+        }
 
-    } else {
-
-        val currentList = lists[selectedListIndex]
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Header("랜덤픽", "선택 장애? 랜덤 해결!")
+        else -> {
+            val currentList = lists[selectedListIndex]
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        MaterialTheme.colorScheme.surface
-                    )
-                    .padding(Dimens.screenPadding)
             ) {
-                TabSelector(
-                    selectedTab = selectedTab,
-                    onTabSelected = { selectedTab = it }
-                )
-
-                Spacer(modifier = Modifier.height(Dimens.spacingLarge))
-                ListDropdownSheet(
-                    currentList = currentList,
-                    allLists = lists,
-                    onListSelected = { index ->
-                        selectedListIndex = index
-                    }
-                )
-
-                Spacer(modifier = Modifier.height(Dimens.spacingExtraLarge))
-
+                Header("랜덤픽", "선택 장애? 랜덤 해결!")
                 Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    when (selectedTab) {
-                        0 -> RouletteContent(
-                            currentList.items.map { it.name },
-                            onAddItemClick = {
-                                navController.navigate(Screen.List.route)
-                            }
-                        )
-
-                        1 -> RandomPickContent(
-                            currentList.items.map { it.name },
-                            onAddItemClick = {
-                                navController.navigate(Screen.List.route)
-                            }
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(Dimens.spacingSmall))
-                BannerAdView(
-                    adUnitId = BuildConfig.AD_UNIT_ID,
                     modifier = Modifier
-                        .fillMaxWidth()
-                )
+                        .fillMaxSize()
+                        .background(
+                            MaterialTheme.colorScheme.surface
+                        )
+                        .padding(Dimens.screenPadding)
+                ) {
+                    TabSelector(
+                        selectedTab = selectedTab,
+                        onTabSelected = { selectedTab = it }
+                    )
+
+                    Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+                    ListDropdownSheet(
+                        currentList = currentList,
+                        allLists = lists,
+                        onListSelected = { index ->
+                            selectedListIndex = index
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.height(Dimens.spacingExtraLarge))
+
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        when (selectedTab) {
+                            0 -> RouletteContent(
+                                currentList.items.map { it.name },
+                                onAddItemClick = {
+                                    navController.navigate(Screen.List.route)
+                                }
+                            )
+
+                            1 -> RandomPickContent(
+                                currentList.items.map { it.name },
+                                onAddItemClick = {
+                                    navController.navigate(Screen.List.route)
+                                }
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(Dimens.spacingSmall))
+                    BannerAdView(
+                        adUnitId = BuildConfig.AD_UNIT_ID,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
             }
         }
     }

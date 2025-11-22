@@ -18,9 +18,21 @@ class MainViewModel @Inject constructor(
     private val _lists = MutableStateFlow<List<PickList>>(emptyList())
     val lists: StateFlow<List<PickList>> = _lists
 
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     fun loadLists() {
         viewModelScope.launch {
-            _lists.value = repository.getLists()
+            _isLoading.value = true
+
+            try {
+                val result = repository.getLists()
+                _lists.value = result
+            } catch (e: Exception) {
+                _lists.value = emptyList()
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }
