@@ -25,9 +25,14 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
 
-            val result =  repository.getLists()
-            _lists.value = result
-            _isLoading.value = false
+            try {
+                val result = repository.getLists()
+                _lists.value = result
+            } catch (e: Exception) {
+                _lists.value = emptyList()
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }
