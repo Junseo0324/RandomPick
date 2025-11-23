@@ -22,17 +22,17 @@ val LightBackgroundBase = Color(0xFFFAFAFA)
 val DarkBackgroundBase = Color(0xFF121212)
 val DarkSurfaceBase = Color(0xFF1E1E1E)
 
-val DarkBackground = Color(0xFF0E0E0E)
+val DarkBackground = Color(0xFF09090B) // Zinc 950
 
-val DarkSurface = Color(0xFF1C1C1E)
-val DarkSurfaceVariant = Color(0xFF2F3033)
+val DarkSurface = Color(0xFF18181B) // Zinc 900
+val DarkSurfaceVariant = Color(0xFF27272A) // Zinc 800
 
-val DarkPrimary = Color(0xFFA8C7FA)
-val DarkOnPrimary = Color(0xFF003369)
+val DarkPrimary = Color(0xFF818CF8) // Indigo 400
+val DarkOnPrimary = Color(0xFFFFFFFF)
 
-val DarkSecondary = Color(0xFF7FD4C1)
-val DarkOnSecondary = Color(0xFF00382E)
+val DarkSecondary = Color(0xFF2DD4BF) // Teal 400
+val DarkOnSecondary = Color(0xFF00382E) // Keep dark text on bright secondary
 
-val DarkTextPrimary = Color(0xFFE3E3E3)
-val DarkTextSecondary = Color(0xFFC4C7C5)
-val DarkOutline = Color(0xFF444746)
+val DarkTextPrimary = Color(0xFFF4F4F5) // Zinc 100
+val DarkTextSecondary = Color(0xFFA1A1AA) // Zinc 400
+val DarkOutline = Color(0xFF3F3F46) // Zinc 700

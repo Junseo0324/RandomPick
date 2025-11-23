@@ -54,13 +54,13 @@ private val LightColorScheme = lightColorScheme(
 private val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,
     onPrimary = DarkOnPrimary,
-    primaryContainer = Color(0xFF004A94),
-    onPrimaryContainer = Color(0xFFD6E3FF),
+    primaryContainer = Color(0xFF312E81), // Indigo 900
+    onPrimaryContainer = Color(0xFFE0E7FF), // Indigo 100
 
     secondary = DarkSecondary,
     onSecondary = DarkOnSecondary,
-    secondaryContainer = Color(0xFF005043),
-    onSecondaryContainer = Color(0xFF9CF3D9),
+    secondaryContainer = Color(0xFF134E4A), // Teal 900
+    onSecondaryContainer = Color(0xFFCCFBF1), // Teal 100
 
     background = DarkBackground,
     onBackground = DarkTextPrimary,
@@ -71,11 +71,11 @@ private val DarkColorScheme = darkColorScheme(
     surfaceVariant = DarkSurfaceVariant,
     onSurfaceVariant = DarkTextSecondary,
 
-    error = Color(0xFFF2B8B5),
-    onError = Color(0xFF601410),
+    error = Color(0xFFF87171), // Red 400
+    onError = Color(0xFF450A0A), // Red 950
 
     outline = DarkOutline,
-    outlineVariant = Color(0xFF444746)
+    outlineVariant = Color(0xFF52525B) // Zinc 600
 )
 
 
