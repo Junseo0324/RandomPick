@@ -33,6 +33,6 @@ val DarkOnPrimary = Color(0xFFFFFFFF)
 val DarkSecondary = Color(0xFF2DD4BF) // Teal 400
 val DarkOnSecondary = Color(0xFF00382E) // Keep dark text on bright secondary
 
-val DarkTextPrimary = Color(0xFFF4F4F5) // Zinc 100
-val DarkTextSecondary = Color(0xFFA1A1AA) // Zinc 400
-val DarkOutline = Color(0xFF3F3F46) // Zinc 700
+val DarkTextPrimary = Color(0xFFF4F4F5)
+val DarkTextSecondary = Color(0xFFA1A1AA)
+val DarkOutline = Color(0xFF3F3F46)

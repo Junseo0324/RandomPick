@@ -209,7 +209,7 @@ fun RouletteContent(
                             )
                         }
                     },
-                    containerColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.outline,
                     shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
                 )
             }
