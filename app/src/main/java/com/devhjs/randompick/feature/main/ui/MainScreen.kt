@@ -25,6 +25,7 @@ import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.feature.main.MainViewModel
 import com.devhjs.randompick.feature.main.components.BannerAdView
 import com.devhjs.randompick.feature.main.components.EmptyPickContent
+import com.devhjs.randompick.feature.main.components.LadderGameContent
 import com.devhjs.randompick.feature.main.components.ListDropdownSheet
 import com.devhjs.randompick.feature.main.components.RandomPickContent
 import com.devhjs.randompick.feature.main.components.RouletteContent
@@ -37,6 +38,8 @@ fun MainScreen(
 ) {
     val viewModel: MainViewModel = hiltViewModel()
     val lists by viewModel.lists.collectAsState()
+    val ladderBridges by viewModel.ladderBridges.collectAsState()
+    val gameResult by viewModel.gameResult.collectAsState()
 
     val isLoading by viewModel.isLoading.collectAsState()
 
@@ -104,6 +107,16 @@ fun MainScreen(
 
                             1 -> RandomPickContent(
                                 currentList.items.map { it.name },
+                                onAddItemClick = {
+                                    navController.navigate(Screen.List.route)
+                                }
+                            )
+
+                            2 -> LadderGameContent(
+                                items = currentList.items.map { it.name },
+                                ladderBridges = ladderBridges,
+                                gameResult = gameResult,
+                                onGenerateLadder = { viewModel.generateLadder(it) },
                                 onAddItemClick = {
                                     navController.navigate(Screen.List.route)
                                 }
