@@ -3,12 +3,14 @@ package com.devhjs.randompick.feature.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devhjs.randompick.core.data.repository.PickRepository
+import com.devhjs.randompick.core.model.Bridge
 import com.devhjs.randompick.core.model.PickList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -20,6 +22,12 @@ class MainViewModel @Inject constructor(
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _ladderBridges = MutableStateFlow<List<Bridge>>(emptyList())
+    val ladderBridges: StateFlow<List<Bridge>> = _ladderBridges
+
+    private val _gameResult = MutableStateFlow<Map<Int, Int>>(emptyMap())
+    val gameResult: StateFlow<Map<Int, Int>> = _gameResult
 
     fun loadLists() {
         viewModelScope.launch {
@@ -34,5 +42,49 @@ class MainViewModel @Inject constructor(
                 _isLoading.value = false
             }
         }
+    }
+
+    fun generateLadder(itemCount: Int) {
+        if (itemCount < 2) {
+            _ladderBridges.value = emptyList()
+            return
+        }
+        val bridges = mutableListOf<Bridge>()
+        val steps = 10
+
+        for (step in 1 until steps) {
+            var col = 0
+            while (col < itemCount - 1) {
+                if (Random.nextBoolean()) {
+                    bridges.add(Bridge(col, step))
+                    col += 2
+                } else {
+                    col++
+                }
+            }
+        }
+        _ladderBridges.value = bridges
+        calculateResults(itemCount, bridges)
+    }
+
+    private fun calculateResults(itemCount: Int, bridges: List<Bridge>) {
+        val results = mutableMapOf<Int, Int>()
+        for (start in 0 until itemCount) {
+            var current = start
+            val sortedBridges = bridges.sortedBy { it.step }
+
+            for (step in 1..10) {
+                val bridgeRight = sortedBridges.find { it.step == step && it.colIndex == current }
+                val bridgeLeft = sortedBridges.find { it.step == step && it.colIndex == current - 1 }
+
+                if (bridgeRight != null) {
+                    current += 1
+                } else if (bridgeLeft != null) {
+                    current -= 1
+                }
+            }
+            results[start] = current
+        }
+        _gameResult.value = results
     }
 }

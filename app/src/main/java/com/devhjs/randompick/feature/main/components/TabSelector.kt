@@ -49,6 +49,13 @@ fun TabSelector(selectedTab: Int, onTabSelected: (Int) -> Unit) {
                 onClick = { onTabSelected(1) },
                 modifier = Modifier.weight(1f)
             )
+            Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+            TabButton(
+                text = "사다리타기",
+                isSelected = selectedTab == 2,
+                onClick = { onTabSelected(2) },
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }

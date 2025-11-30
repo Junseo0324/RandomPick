@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.devhjs.randompick.core.ui.theme.Dimens
 
 @Composable
@@ -30,8 +31,14 @@ fun TabButton(
             else
                 MaterialTheme.colorScheme.onSurfaceVariant
         ),
+        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 4.dp),
         shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
     ) {
-        Text(text, style = MaterialTheme.typography.bodyLarge)
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelLarge,
+            maxLines = 1,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+        )
     }
 }
