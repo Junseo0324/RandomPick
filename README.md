@@ -30,7 +30,14 @@ RandomPick은 일상 속 선택의 고민을 덜어주는 안드로이드 애플
 - **Local Data**: Room Database (Repository Pattern 적용)
 
 ## 📱 스크린샷
+<img width="22%" alt="image" src="https://github.com/user-attachments/assets/4f5c8792-11c5-46d8-a458-bd911af0f78a" />
+<img width="22%" alt="image" src="https://github.com/user-attachments/assets/dce28173-ab09-4455-96ba-93bd6d88b97f" />
+<img width="22%" alt="image" src="https://github.com/user-attachments/assets/63b3ac0b-8bb9-47df-9c1a-6d7c78128b2b" />
+<img width="22%" alt="image" src="https://github.com/user-attachments/assets/468c6f72-d60a-431d-ac0b-26c5edd7ecbf" />
 
-| 리스트 목록 | 아이템 추가 | 사다리 게임 | 결과 확인 |
-|:---:|:---:|:---:|:---:|
-| <!-- 이미지 경로 --> | <!-- 이미지 경로 --> | <!-- 이미지 경로 --> | <!-- 이미지 경로 --> |
+
+## 다운로드
+
+<a href="https://play.google.com/store/apps/details?id=com.devhjs.randompick" target="_blank">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
+</a>
