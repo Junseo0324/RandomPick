@@ -81,7 +81,7 @@ fun RouletteContent(
             ) {
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth(0.85f)
+                        .fillMaxWidth(0.7f)
                         .aspectRatio(1f),
                     contentAlignment = Alignment.Center
                 ) {
