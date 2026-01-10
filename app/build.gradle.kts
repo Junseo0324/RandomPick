@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.aboutlibraries)
 }
 
 hilt {
@@ -103,4 +104,5 @@ dependencies {
 
     implementation("com.google.android.gms:play-services-ads:23.1.0")
 
+    implementation(libs.aboutlibraries.compose)
 }

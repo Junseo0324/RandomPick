@@ -69,7 +69,13 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                Header("랜덤픽", "선택 장애? 랜덤 해결!")
+                Header(
+                    title = "랜덤픽",
+                    description = "선택 장애? 랜덤 해결!",
+                    onLicenseClick = {
+                        navController.navigate(Screen.License.route)
+                    }
+                )
                 Column(
                     modifier = Modifier
                         .fillMaxSize()

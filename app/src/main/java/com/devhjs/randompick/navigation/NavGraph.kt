@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.devhjs.randompick.feature.license.LicenseScreen
 import com.devhjs.randompick.feature.list.ui.ListScreen
 import com.devhjs.randompick.feature.main.ui.MainScreen
 import com.devhjs.randompick.navigation.data.Screen
@@ -22,5 +23,6 @@ fun NavGraph(navController: NavHostController) {
         ) {
         composable(Screen.Main.route) { MainScreen(navController) }
         composable(Screen.List.route) { ListScreen() }
+        composable(Screen.License.route) { LicenseScreen(navController) }
     }
 }
