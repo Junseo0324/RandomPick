@@ -56,6 +56,7 @@ fun LadderGameContent(
     ladderBridges: List<Bridge>,
     gameResult: Map<Int, Int>,
     onGenerateLadder: (Int) -> Unit,
+    onInteraction: () -> Unit = {},
     onAddItemClick: (() -> Unit)? = null
 ) {
     if (items.isEmpty()) {
@@ -232,6 +233,7 @@ fun LadderGameContent(
                         if (selectedParticipantIndex == null) {
                             selectedParticipantIndex = 0
                         }
+                        onInteraction()
                         
                         isPlaying = true
                         scope.launch {

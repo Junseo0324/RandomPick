@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.devhjs.randompick.core.data.repository.PickRepository
 import com.devhjs.randompick.core.model.Bridge
 import com.devhjs.randompick.core.model.PickList
+import com.devhjs.randompick.core.util.AdManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -86,5 +87,17 @@ class MainViewModel @Inject constructor(
             results[start] = current
         }
         _gameResult.value = results
+    }
+
+    private var interactionCount = 0
+
+    fun checkAndShowAd(activity: android.app.Activity) {
+        interactionCount++
+        if (interactionCount % 3 == 0) {
+            AdManager.showInterstitialAd(activity)
+        } else {
+            // Preload next ad if needed, though AdManager handles it.
+            AdManager.loadInterstitialAd(activity)
+        }
     }
 }

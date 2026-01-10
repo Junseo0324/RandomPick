@@ -30,8 +30,8 @@ android {
         applicationId = "com.devhjs.randompick"
         minSdk = 24
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.2"
+        versionCode = 5
+        versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders["adMobAppId"] = adMobAppId
@@ -40,10 +40,12 @@ android {
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "AD_UNIT_ID", "\"ca-app-pub-3940256099942544/6300978111\"")
+            buildConfigField("String", "INTERSTITIAL_AD_UNIT_ID", "\"ca-app-pub-3940256099942544/1033173712\"")
         }
 
         getByName("release") {
             buildConfigField("String", "AD_UNIT_ID", "\"$adMobRealId\"")
+            buildConfigField("String", "INTERSTITIAL_AD_UNIT_ID", "\"ca-app-pub-3216980827282944/7225712228\"")
 
             isMinifyEnabled = false
             proguardFiles(

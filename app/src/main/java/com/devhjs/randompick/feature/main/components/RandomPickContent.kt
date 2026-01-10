@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun RandomPickContent(
     items: List<String>,
+    onInteraction: () -> Unit = {},
     onAddItemClick: (() -> Unit)? = null
 ) {
     if (items.isEmpty()) {
@@ -126,6 +127,7 @@ fun RandomPickContent(
             Button(
                 onClick = {
                     if (items.isNotEmpty() && !isPicking) {
+                        onInteraction()
                         isPicking = true
                         finalItem = null
                         hasPickedOnce = true

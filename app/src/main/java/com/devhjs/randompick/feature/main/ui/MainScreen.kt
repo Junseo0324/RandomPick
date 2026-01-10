@@ -103,9 +103,15 @@ fun MainScreen(
                     Column(
                         modifier = Modifier.weight(1f)
                     ) {
+                        val context = androidx.compose.ui.platform.LocalContext.current
+                        val activity = context as? android.app.Activity
+
                         when (selectedTab) {
                             0 -> RouletteContent(
                                 currentList.items.map { it.name },
+                                onInteraction = {
+                                    activity?.let { viewModel.checkAndShowAd(it) }
+                                },
                                 onAddItemClick = {
                                     navController.navigate(Screen.List.route)
                                 }
@@ -113,6 +119,9 @@ fun MainScreen(
 
                             1 -> RandomPickContent(
                                 currentList.items.map { it.name },
+                                onInteraction = {
+                                    activity?.let { viewModel.checkAndShowAd(it) }
+                                },
                                 onAddItemClick = {
                                     navController.navigate(Screen.List.route)
                                 }
@@ -123,6 +132,9 @@ fun MainScreen(
                                 ladderBridges = ladderBridges,
                                 gameResult = gameResult,
                                 onGenerateLadder = { viewModel.generateLadder(it) },
+                                onInteraction = {
+                                    activity?.let { viewModel.checkAndShowAd(it) }
+                                },
                                 onAddItemClick = {
                                     navController.navigate(Screen.List.route)
                                 }

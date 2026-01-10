@@ -43,6 +43,7 @@ import kotlin.random.Random
 @Composable
 fun RouletteContent(
     items: List<String>,
+    onInteraction: () -> Unit = {},
     onAddItemClick: (() -> Unit)? = null
 ) {
     Crossfade(targetState = items.isEmpty(), label = "RouletteEmptyState") { isEmpty ->
@@ -118,6 +119,7 @@ fun RouletteContent(
                 Button(
                     onClick = {
                         if (!isSpinning) {
+                            onInteraction()
                             isSpinning = true
                             selectedItem = null
                             scope.launch {
