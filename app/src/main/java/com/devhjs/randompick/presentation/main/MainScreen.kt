@@ -1,5 +1,6 @@
-package com.devhjs.randompick.presentation.main.ui
+package com.devhjs.randompick.presentation.main
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,13 +17,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.devhjs.randompick.BuildConfig
+import com.devhjs.randompick.core.navigation.data.Screen
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.componenets.LoadingContent
 import com.devhjs.randompick.core.ui.theme.Dimens
-import com.devhjs.randompick.presentation.main.MainViewModel
 import com.devhjs.randompick.presentation.main.components.BannerAdView
 import com.devhjs.randompick.presentation.main.components.EmptyPickContent
 import com.devhjs.randompick.presentation.main.components.LadderGameContent
@@ -30,7 +32,6 @@ import com.devhjs.randompick.presentation.main.components.ListDropdownSheet
 import com.devhjs.randompick.presentation.main.components.RandomPickContent
 import com.devhjs.randompick.presentation.main.components.RouletteContent
 import com.devhjs.randompick.presentation.main.components.TabSelector
-import com.devhjs.randompick.core.navigation.data.Screen
 
 @Composable
 fun MainScreen(
@@ -103,8 +104,8 @@ fun MainScreen(
                     Column(
                         modifier = Modifier.weight(1f)
                     ) {
-                        val context = androidx.compose.ui.platform.LocalContext.current
-                        val activity = context as? android.app.Activity
+                        val context = LocalContext.current
+                        val activity = context as? Activity
 
                         when (selectedTab) {
                             0 -> RouletteContent(

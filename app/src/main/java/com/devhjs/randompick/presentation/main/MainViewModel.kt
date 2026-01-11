@@ -2,10 +2,10 @@ package com.devhjs.randompick.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devhjs.randompick.domain.repository.PickRepository
+import com.devhjs.randompick.core.util.AdManager
 import com.devhjs.randompick.domain.model.Bridge
 import com.devhjs.randompick.domain.model.PickList
-import com.devhjs.randompick.core.util.AdManager
+import com.devhjs.randompick.domain.usecase.GetPickListsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ import kotlin.random.Random
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: PickRepository
+    private val getPickListsUseCase: GetPickListsUseCase
 ) : ViewModel() {
 
     private val _lists = MutableStateFlow<List<PickList>>(emptyList())
@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
             _isLoading.value = true
 
             try {
-                val result = repository.getLists()
+                val result = getPickListsUseCase.execute()
                 _lists.value = result
             } catch (e: Exception) {
                 _lists.value = emptyList()

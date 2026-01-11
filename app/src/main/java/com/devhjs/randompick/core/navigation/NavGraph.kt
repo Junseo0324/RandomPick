@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.devhjs.randompick.presentation.license.LicenseScreen
-import com.devhjs.randompick.presentation.list.ui.ListScreen
-import com.devhjs.randompick.presentation.main.ui.MainScreen
 import com.devhjs.randompick.core.navigation.data.Screen
+import com.devhjs.randompick.presentation.license.LicenseScreen
+import com.devhjs.randompick.presentation.list.ListScreen
+import com.devhjs.randompick.presentation.main.MainScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {

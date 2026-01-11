@@ -1,4 +1,4 @@
-package com.devhjs.randompick.presentation.list.ui
+package com.devhjs.randompick.presentation.list
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -31,12 +31,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.devhjs.randompick.BuildConfig
-import com.devhjs.randompick.domain.model.ListEvent
-import com.devhjs.randompick.domain.model.PickList
 import com.devhjs.randompick.core.ui.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.core.ui.theme.RandomPickTheme
-import com.devhjs.randompick.presentation.list.ListViewModel
+import com.devhjs.randompick.domain.model.ListEvent
+import com.devhjs.randompick.domain.model.PickList
 import com.devhjs.randompick.presentation.list.components.AddListBottomSheet
 import com.devhjs.randompick.presentation.list.components.EditListBottomSheet
 import com.devhjs.randompick.presentation.list.components.ListCard

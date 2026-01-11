@@ -3,7 +3,12 @@ package com.devhjs.randompick.presentation.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devhjs.randompick.data.repository.MAX_ITEMS
-import com.devhjs.randompick.domain.repository.PickRepository
+import com.devhjs.randompick.domain.usecase.CreatePickItemUseCase
+import com.devhjs.randompick.domain.usecase.CreatePickListUseCase
+import com.devhjs.randompick.domain.usecase.DeletePickItemUseCase
+import com.devhjs.randompick.domain.usecase.DeletePickListUseCase
+import com.devhjs.randompick.domain.usecase.GetPickListsUseCase
+import com.devhjs.randompick.domain.usecase.UpdatePickListUseCase
 import com.devhjs.randompick.domain.model.ListEvent
 import com.devhjs.randompick.domain.model.PickItem
 import com.devhjs.randompick.domain.model.PickList
@@ -17,7 +22,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val repository: PickRepository
+    private val getPickListsUseCase: GetPickListsUseCase,
+    private val createPickListUseCase: CreatePickListUseCase,
+    private val updatePickListUseCase: UpdatePickListUseCase,
+    private val deletePickListUseCase: DeletePickListUseCase,
+    private val createPickItemUseCase: CreatePickItemUseCase,
+    private val deletePickItemUseCase: DeletePickItemUseCase
 ) : ViewModel() {
 
     private val _lists = MutableStateFlow<List<PickList>>(emptyList())
@@ -28,39 +38,34 @@ class ListViewModel @Inject constructor(
 
     fun loadLists() {
         viewModelScope.launch {
-            _lists.value = repository.getLists()
+            _lists.value = getPickListsUseCase.execute()
         }
     }
 
     fun addList(title: String) {
         viewModelScope.launch {
-            val newList = PickList(
-                title = title,
-                items = emptyList()
-            )
-            repository.insertList(newList)
+            createPickListUseCase.execute(title)
             loadLists()
         }
     }
 
     fun updateList(updatedList: PickList) {
         viewModelScope.launch {
-            repository.updateList(updatedList)
+            updatePickListUseCase.execute(updatedList)
             loadLists()
         }
     }
 
     fun deleteList(list: PickList) {
         viewModelScope.launch {
-            repository.deleteList(list)
+            deletePickListUseCase.execute(list)
             loadLists()
         }
     }
 
     fun addItem(listId: Int, name: String) {
         viewModelScope.launch {
-            val newItem = PickItem(listId = listId, name = name)
-            val added = repository.insertItem(newItem)
+            val added = createPickItemUseCase.execute(listId, name)
             if (!added) {
                 _eventFlow.emit(ListEvent.ShowMessage("항목은 최대 ${MAX_ITEMS}개까지 추가할 수 있습니다."))
             }
@@ -71,7 +76,7 @@ class ListViewModel @Inject constructor(
 
     fun deleteItem(item: PickItem) {
         viewModelScope.launch {
-            repository.deleteItem(item)
+            deletePickItemUseCase.execute(item)
             loadLists()
         }
     }
