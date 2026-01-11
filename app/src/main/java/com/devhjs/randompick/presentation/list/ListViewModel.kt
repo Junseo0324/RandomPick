@@ -36,30 +36,29 @@ class ListViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<ListEvent>()
     val eventFlow: SharedFlow<ListEvent> = _eventFlow
 
-    fun loadLists() {
+    init {
         viewModelScope.launch {
-            _lists.value = getPickListsUseCase.execute()
+            getPickListsUseCase.execute().collect {
+                _lists.value = it
+            }
         }
     }
 
     fun addList(title: String) {
         viewModelScope.launch {
             createPickListUseCase.execute(title)
-            loadLists()
         }
     }
 
     fun updateList(updatedList: PickList) {
         viewModelScope.launch {
             updatePickListUseCase.execute(updatedList)
-            loadLists()
         }
     }
 
     fun deleteList(list: PickList) {
         viewModelScope.launch {
             deletePickListUseCase.execute(list)
-            loadLists()
         }
     }
 
@@ -69,7 +68,6 @@ class ListViewModel @Inject constructor(
             if (!added) {
                 _eventFlow.emit(ListEvent.ShowMessage("항목은 최대 ${MAX_ITEMS}개까지 추가할 수 있습니다."))
             }
-            loadLists()
         }
     }
 
@@ -77,7 +75,6 @@ class ListViewModel @Inject constructor(
     fun deleteItem(item: PickItem) {
         viewModelScope.launch {
             deletePickItemUseCase.execute(item)
-            loadLists()
         }
     }
 

@@ -2,13 +2,14 @@ package com.devhjs.randompick.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devhjs.randompick.core.util.AdManager
 import com.devhjs.randompick.domain.model.Bridge
-import com.devhjs.randompick.domain.model.PickList
 import com.devhjs.randompick.domain.usecase.GetPickListsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
@@ -18,36 +19,59 @@ class MainViewModel @Inject constructor(
     private val getPickListsUseCase: GetPickListsUseCase
 ) : ViewModel() {
 
-    private val _lists = MutableStateFlow<List<PickList>>(emptyList())
-    val lists: StateFlow<List<PickList>> = _lists
+    private val _state = MutableStateFlow(MainState())
+    val state = _state.asStateFlow()
 
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading: StateFlow<Boolean> = _isLoading
+    private val _event = MutableSharedFlow<MainEvent>()
+    val event = _event.asSharedFlow()
 
-    private val _ladderBridges = MutableStateFlow<List<Bridge>>(emptyList())
-    val ladderBridges: StateFlow<List<Bridge>> = _ladderBridges
+    private var interactionCount = 0
 
-    private val _gameResult = MutableStateFlow<Map<Int, Int>>(emptyMap())
-    val gameResult: StateFlow<Map<Int, Int>> = _gameResult
-
-    fun loadLists() {
+    init {
+        // Reactive Data Loading
         viewModelScope.launch {
-            _isLoading.value = true
+            _state.update { it.copy(isLoading = true) }
+            getPickListsUseCase.execute()
+                .collect { lists ->
+                    _state.update {
+                        it.copy(
+                            list = lists,
+                            isLoading = false
+                        )
+                    }
+                }
+        }
+    }
 
-            try {
-                val result = getPickListsUseCase.execute()
-                _lists.value = result
-            } catch (e: Exception) {
-                _lists.value = emptyList()
-            } finally {
-                _isLoading.value = false
+    fun onAction(action: MainAction) {
+        when (action) {
+            is MainAction.OnEmptyButtonClick -> {
+                viewModelScope.launch { _event.emit(MainEvent.NavigateToList) }
+            }
+            is MainAction.OnLicenseClick -> {
+                viewModelScope.launch { _event.emit(MainEvent.NavigateToLicense) }
+            }
+            is MainAction.OnAddItemClick -> {
+                viewModelScope.launch { _event.emit(MainEvent.NavigateToList) }
+            }
+            is MainAction.OnGenerateLadder -> {
+                generateLadder(action.count)
+            }
+            is MainAction.OnInteraction -> {
+                checkAndShowAd()
+            }
+            is MainAction.OnTabSelected -> {
+                _state.update { it.copy(selectedTab = action.index) }
+            }
+            is MainAction.OnListSelected -> {
+                _state.update { it.copy(selectedListIndex = action.index) }
             }
         }
     }
 
-    fun generateLadder(itemCount: Int) {
+    private fun generateLadder(itemCount: Int) {
         if (itemCount < 2) {
-            _ladderBridges.value = emptyList()
+            _state.update { it.copy(bridge = emptyList()) }
             return
         }
         val bridges = mutableListOf<Bridge>()
@@ -64,7 +88,7 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-        _ladderBridges.value = bridges
+        _state.update { it.copy(bridge = bridges) }
         calculateResults(itemCount, bridges)
     }
 
@@ -86,17 +110,18 @@ class MainViewModel @Inject constructor(
             }
             results[start] = current
         }
-        _gameResult.value = results
+        _state.update { it.copy(gameResult = results) }
     }
 
-    private var interactionCount = 0
-
-    fun checkAndShowAd(activity: android.app.Activity) {
+    private fun checkAndShowAd() {
         interactionCount++
         if (interactionCount % 3 == 0) {
-            AdManager.showInterstitialAd(activity)
-        } else {
-            AdManager.loadInterstitialAd(activity)
+            viewModelScope.launch {
+                _event.emit(MainEvent.ShowAd)
+            }
         }
+        // Loading ad is a side effect usually managed by the AdManager or triggered here if needed.
+        // Assuming AdManager manages loading itself or called appropriately.
+        // We could emit an event to load ad if needed, but per request, we use Event for ShowAd.
     }
 }

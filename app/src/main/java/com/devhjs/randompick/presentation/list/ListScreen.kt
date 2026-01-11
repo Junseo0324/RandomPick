@@ -55,7 +55,6 @@ fun ListScreen() {
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.loadLists()
         viewModel.eventFlow.collect { event ->
             when (event) {
                 is ListEvent.ShowMessage -> {

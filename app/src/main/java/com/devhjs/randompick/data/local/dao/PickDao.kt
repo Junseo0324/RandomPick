@@ -5,16 +5,20 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.devhjs.randompick.data.local.entity.PickItemEntity
 import com.devhjs.randompick.data.local.entity.PickListEntity
+import com.devhjs.randompick.data.local.relation.PickListWithItems
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PickDao {
 
     // List
+    @Transaction
     @Query("SELECT * FROM pick_list ORDER BY createdAt DESC")
-    suspend fun getLists(): List<PickListEntity>
+    fun getLists(): Flow<List<PickListWithItems>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(list: PickListEntity): Long

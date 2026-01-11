@@ -7,6 +7,8 @@ import com.devhjs.randompick.data.mapper.toModel
 import com.devhjs.randompick.domain.model.PickItem
 import com.devhjs.randompick.domain.model.PickList
 import com.devhjs.randompick.domain.repository.PickRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,10 +19,9 @@ class PickRepositoryImpl @Inject constructor(
     private val dao: PickDao
 ) : PickRepository {
 
-    override suspend fun getLists(): List<PickList> {
-        return dao.getLists().map { listEntity ->
-            val items = dao.getItemsByListId(listEntity.id).map { it.toModel() }
-            listEntity.toModel(items)
+    override fun getLists(): Flow<List<PickList>> {
+        return dao.getLists().map { lists ->
+            lists.map { it.pickList.toModel(it.items.map { item -> item.toModel() }) }
         }
     }
 

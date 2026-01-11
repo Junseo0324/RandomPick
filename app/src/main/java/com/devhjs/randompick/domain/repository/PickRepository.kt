@@ -2,9 +2,10 @@ package com.devhjs.randompick.domain.repository
 
 import com.devhjs.randompick.domain.model.PickItem
 import com.devhjs.randompick.domain.model.PickList
+import kotlinx.coroutines.flow.Flow
 
 interface PickRepository {
-    suspend fun getLists(): List<PickList>
+    fun getLists(): Flow<List<PickList>>
     suspend fun insertList(list: PickList): Long
     suspend fun updateList(list: PickList)
     suspend fun deleteList(list: PickList)
