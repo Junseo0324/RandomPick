@@ -96,7 +96,6 @@ class MainViewModel @Inject constructor(
         if (interactionCount % 3 == 0) {
             AdManager.showInterstitialAd(activity)
         } else {
-            // Preload next ad if needed, though AdManager handles it.
             AdManager.loadInterstitialAd(activity)
         }
     }
