@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.devhjs.randompick.BuildConfig
-import com.devhjs.randompick.core.ui.componenets.Header
-import com.devhjs.randompick.core.ui.componenets.LoadingContent
+import com.devhjs.randompick.presentation.componenets.Header
+import com.devhjs.randompick.presentation.componenets.LoadingContent
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.presentation.main.components.BannerAdView
 import com.devhjs.randompick.presentation.main.components.EmptyPickContent

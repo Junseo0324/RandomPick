@@ -1,4 +1,4 @@
-package com.devhjs.randompick.core.ui.componenets
+package com.devhjs.randompick.presentation.componenets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

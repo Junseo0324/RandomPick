@@ -31,7 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.devhjs.randompick.BuildConfig
-import com.devhjs.randompick.core.ui.componenets.Header
+import com.devhjs.randompick.presentation.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.core.ui.theme.RandomPickTheme
 import com.devhjs.randompick.domain.model.ListEvent
