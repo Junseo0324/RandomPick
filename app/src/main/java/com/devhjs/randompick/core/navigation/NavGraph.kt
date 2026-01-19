@@ -16,19 +16,24 @@ fun NavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = Screen.Main.route,
-        enterTransition = { EnterTransition.None},
-        exitTransition = { ExitTransition.None},
-        popEnterTransition = { EnterTransition.None},
-        popExitTransition = { ExitTransition.None}
-        ) {
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None }
+    ) {
         composable(Screen.Main.route) {
-//            MainScreen(navController)
             MainScreenRoot(
                 onNavigateToList = { navController.navigate(Screen.List.route) },
                 onNavigateToLicense = { navController.navigate(Screen.License.route) }
             )
         }
         composable(Screen.List.route) { ListScreen() }
-        composable(Screen.License.route) { LicenseScreen(navController) }
+        composable(Screen.License.route) {
+            LicenseScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
     }
 }
