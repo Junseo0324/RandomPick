@@ -2,7 +2,6 @@ package com.devhjs.randompick.presentation.list
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,130 +9,54 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.devhjs.randompick.BuildConfig
-import com.devhjs.randompick.presentation.componenets.Header
 import com.devhjs.randompick.core.ui.theme.Dimens
 import com.devhjs.randompick.core.ui.theme.RandomPickTheme
-import com.devhjs.randompick.domain.model.ListEvent
-import com.devhjs.randompick.domain.model.PickList
-import com.devhjs.randompick.presentation.list.components.AddListBottomSheet
-import com.devhjs.randompick.presentation.list.components.EditListBottomSheet
 import com.devhjs.randompick.presentation.list.components.ListCard
 import com.devhjs.randompick.presentation.main.components.BannerAdView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListScreen() {
-    val viewModel: ListViewModel = hiltViewModel()
-
-    val lists by viewModel.lists.collectAsState()
-    var showSheet by remember { mutableStateOf(false) }
-    var selectedList by remember { mutableStateOf<PickList?>(null) }
-    var showBottomSheet by remember { mutableStateOf(false) }
-    var newListTitle by remember { mutableStateOf("") }
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        viewModel.eventFlow.collect { event ->
-            when (event) {
-                is ListEvent.ShowMessage -> {
-                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-    }
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { showBottomSheet = true }
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "리스트 추가")
-            }
-        },
-        floatingActionButtonPosition = FabPosition.End,
-    ) { innerPadding ->
-        Column(
+fun ListScreen(
+    state: ListState = ListState(),
+    onAction: (ListAction) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
+                .padding(horizontal = Dimens.spacingSmall)
+                .weight(1f),
         ) {
-            Header("내 리스트", "리스트를 관리하세요")
-
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(horizontal = Dimens.spacingSmall)
-                    .weight(1f),
-            ) {
-                items(lists) { list ->
-                    ListCard(
-                        list = list,
-                        onClick = {
-                            selectedList = list
-                            showSheet = true
-                        }
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                BannerAdView(
-                    adUnitId = BuildConfig.AD_UNIT_ID,
-                    modifier = Modifier
-                        .fillMaxWidth()
+            items(state.lists) { list ->
+                ListCard(
+                    list = list,
+                    onClick = {
+                        onAction(ListAction.OnListClick(list))
+                    }
                 )
             }
         }
-
-        if (showSheet && selectedList != null) {
-            EditListBottomSheet(
-                list = selectedList,
-                onDismiss = {
-                    showSheet = false
-                    selectedList = null
-                },
-                viewModel = viewModel
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            BannerAdView(
+                adUnitId = BuildConfig.AD_UNIT_ID,
+                modifier = Modifier
+                    .fillMaxWidth()
             )
         }
-
-        AddListBottomSheet(
-            sheetState = sheetState,
-            showBottomSheet = showBottomSheet,
-            newListTitle = newListTitle,
-            onTitleChange = { newListTitle = it },
-            onDismiss = { showBottomSheet = false },
-            onAddClick = {
-                if (newListTitle.isNotBlank()) {
-                    viewModel.addList(newListTitle.trim())
-                    newListTitle = ""
-                    showBottomSheet = false
-                }
-            }
-        )
     }
 }
 
@@ -163,3 +86,4 @@ fun ListScreenDarkPreview() {
         ListScreen()
     }
 }
+

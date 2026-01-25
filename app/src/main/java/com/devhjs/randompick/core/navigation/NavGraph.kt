@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.devhjs.randompick.core.navigation.data.Screen
 import com.devhjs.randompick.presentation.license.LicenseScreen
 import com.devhjs.randompick.presentation.list.ListScreen
+import com.devhjs.randompick.presentation.list.ListScreenRoot
 import com.devhjs.randompick.presentation.main.MainScreenRoot
 
 @Composable
@@ -27,7 +28,7 @@ fun NavGraph(navController: NavHostController) {
                 onNavigateToLicense = { navController.navigate(Screen.License.route) }
             )
         }
-        composable(Screen.List.route) { ListScreen() }
+        composable(Screen.List.route) { ListScreenRoot() }
         composable(Screen.License.route) {
             LicenseScreen(
                 onBackClick = {

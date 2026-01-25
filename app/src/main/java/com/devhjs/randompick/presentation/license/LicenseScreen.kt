@@ -45,11 +45,11 @@ fun LicenseScreen(
                 )
             )
         }
-    ) { paddingValues ->
+    ) { innerPadding ->
         LibrariesContainer(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(innerPadding)
         )
     }
 }

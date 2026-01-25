@@ -53,7 +53,11 @@ const val MAX_LENGTH = 10
 fun EditListBottomSheet(
     list: PickList?,
     onDismiss: () -> Unit,
-    viewModel: ListViewModel
+    onUpdateList: (PickList) -> Unit,
+    onDeleteList: (PickList) -> Unit,
+    onAddItem: (Int, String) -> Unit,
+    onDeleteItem: (PickItem) -> Unit,
+    onShowError: (String) -> Unit
 ) {
     if (list == null) return
 
@@ -118,7 +122,7 @@ fun EditListBottomSheet(
                     itemsIndexed(items) { index, item ->
                         ItemRow(item = item) {
                             items.removeAt(index)
-                            viewModel.deleteItem(item)
+                            onDeleteItem(item)
                         }
                     }
                 }
@@ -135,7 +139,7 @@ fun EditListBottomSheet(
                             if (newItemText.length <= MAX_LENGTH) {
                                 newItemText = it
                             } else {
-                                viewModel.sendMessage("항목은 최대 ${MAX_LENGTH}자 까지 입력할 수 있습니다.")
+                                onShowError("항목은 최대 ${MAX_LENGTH}자 까지 입력할 수 있습니다.")
                             }
                         },
                         singleLine = true,
@@ -146,12 +150,12 @@ fun EditListBottomSheet(
                     IconButton(onClick = {
                         if (newItemText.isNotBlank()) {
                             if (items.size >= 10) {
-                                viewModel.sendMessage("항목은 최대 ${MAX_ITEMS}개까지 추가할 수 있습니다.")
+                                onShowError("항목은 최대 ${MAX_ITEMS}개까지 추가할 수 있습니다.")
                                 return@IconButton
                             }
                             val newItem = PickItem(listId = list.id ?: 0, name = newItemText)
                             items.add(newItem)
-                            viewModel.addItem(list.id ?: 0, newItemText)
+                            onAddItem(list.id ?: 0, newItemText)
                             newItemText = ""
                         }
                     }) {
@@ -166,7 +170,7 @@ fun EditListBottomSheet(
                 Button(
                     onClick = {
                         val updatedList = list.copy(title = listTitle, items = items)
-                        viewModel.updateList(updatedList)
+                        onUpdateList(updatedList)
                         onDismiss()
                     },
                     modifier = Modifier.fillMaxWidth()
@@ -183,7 +187,7 @@ fun EditListBottomSheet(
 
                 OutlinedButton(
                     onClick = {
-                        viewModel.deleteList(list)
+                        onDeleteList(list)
                         onDismiss()
                     },
                     modifier = Modifier.fillMaxWidth(),
