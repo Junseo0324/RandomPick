@@ -18,7 +18,7 @@ import kotlin.math.sin
 fun RouletteWheel(
     items: List<String>,
     colors: List<Color>,
-    rotation: Float,
+    rotation: () -> Float,
     modifier: Modifier = Modifier
 ) {
     val textMeasurer = rememberTextMeasurer()
@@ -27,7 +27,7 @@ fun RouletteWheel(
         val radius = size.minDimension / 2
         val center = Offset(size.width / 2, size.height / 2)
         val segmentAngle = 360f / items.size
-        rotate(rotation, center) {
+        rotate(rotation(), center) {
             items.forEachIndexed { index, item ->
                 val startAngle = -90f + segmentAngle * index
                 val color = colors[index % colors.size]

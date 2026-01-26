@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.devhjs.randompick.core.ui.theme.Dimens
 import kotlinx.coroutines.launch
@@ -117,7 +118,9 @@ fun RandomPickContent(
                             finalItem != null -> finalItem ?: ""
                             else -> ""
                         },
-                        modifier = Modifier.offset(y = offsetY.value.dp),
+                        modifier = Modifier.offset {
+                             IntOffset(0, offsetY.value.dp.roundToPx())
+                        },
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
                         color = MaterialTheme.colorScheme.onPrimary
                     )

@@ -89,7 +89,7 @@ fun RouletteContent(
                     RouletteWheel(
                         items = items,
                         colors = colors,
-                        rotation = rotation.value,
+                        rotation = { rotation.value },
                         modifier = Modifier.fillMaxSize(0.93f)
                     )
                     Canvas(
