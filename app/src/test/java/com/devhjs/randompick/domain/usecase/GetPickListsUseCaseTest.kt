@@ -5,6 +5,8 @@ import com.devhjs.randompick.domain.repository.PickRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -21,10 +23,10 @@ class GetPickListsUseCaseTest {
             PickList(id = 1, title = "List 1"),
             PickList(id = 2, title = "List 2")
         )
-        coEvery { repository.getLists() } returns expectedList
+        coEvery { repository.getLists() } returns flowOf(expectedList)
 
         // When
-        val result = useCase.execute()
+        val result = useCase.execute().first()
 
         // Then
         assertEquals(expectedList, result)

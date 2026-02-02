@@ -9,11 +9,14 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.slot
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import com.devhjs.randompick.data.local.relation.PickListWithItems
 
 class PickRepositoryImplTest {
 
@@ -26,11 +29,15 @@ class PickRepositoryImplTest {
         val listEntity = PickListEntity(id = 1, title = "List 1", createdAt = 100L)
         val itemEntity = PickItemEntity(id = 1, listId = 1, name = "Item 1", createdAt = 200L)
         
-        coEvery { dao.getLists() } returns listOf(listEntity)
-        coEvery { dao.getItemsByListId(1) } returns listOf(itemEntity)
+        val pickListWithItems = PickListWithItems(
+            pickList = listEntity,
+            items = listOf(itemEntity)
+        )
+        
+        coEvery { dao.getLists() } returns flowOf(listOf(pickListWithItems))
 
         // When
-        val result = repository.getLists()
+        val result = repository.getLists().first()
 
         // Then
         assertEquals(1, result.size)
