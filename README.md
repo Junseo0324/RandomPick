@@ -194,4 +194,3 @@ graph TD
 2. **Hilt Component Lifecycle**
    - `@InstallIn(SingletonComponent::class)`를 사용하는 `AppModule`은 데이터베이스 및 데이터 소스 컴포넌트를 **싱글톤**으로 생명주기 관리하여 중복 인스턴스 생성을 방지하고 자원을 효율적으로 보존합니다.
    - ViewModel은 `@HiltViewModel`을 사용해 안드로이드 시스템의 ViewModel 생명주기와 완벽하게 싱글톤 매핑되어 의존성을 안전하게 제공받습니다.
-```
