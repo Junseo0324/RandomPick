@@ -53,25 +53,25 @@ RandomPick은 일상 속 선택의 고민을 덜어주는 안드로이드 애플
 
 ```mermaid
 graph TD
-    subgraph Presentation Layer (UI & MVVM)
+    subgraph presentation["Presentation Layer (UI & MVVM)"]
         View[Compose Screen] --> ViewModel
     end
 
-    subgraph Domain Layer (Pure Business Logic)
+    subgraph domain["Domain Layer (Pure Business Logic)"]
         ViewModel --> UseCase[Use Case]
         UseCase --> Entity[Domain Model]
         UseCase --> RepositoryInterface[Repository Interface]
     end
 
-    subgraph Data Layer (Data Sources)
+    subgraph data["Data Layer (Data Sources)"]
         RepositoryImpl[Repository Implementation] --> RepositoryInterface
         RepositoryImpl --> Room[Room Database]
         RepositoryImpl --> Mapper[Mapper]
     end
 
-    style Domain Layer fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    style Presentation Layer fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
-    style Data Layer fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style domain fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style presentation fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style data fill:#fff3e0,stroke:#e65100,stroke-width:2px
 ```
 
 ### 2. 패키지 디렉토리 구조 (Directory Structure)
@@ -155,19 +155,19 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    subgraph Container: SingletonComponent (전역 싱글톤 범위)
+    subgraph singleton["Container: SingletonComponent (전역 싱글톤 범위)"]
         DB[RandomPickDatabase]
         Dao[PickDao]
         RepoInterface[PickRepository 인터페이스]
         RepoImpl[PickRepositoryImpl 구현체]
     end
 
-    subgraph Container: ViewModelComponent (ViewModel 범위)
+    subgraph viewmodel["Container: ViewModelComponent (ViewModel 범위)"]
         VM_List[ListViewModel]
         VM_Main[MainViewModel]
     end
 
-    subgraph Auto-Injected UseCases (생성자 주입)
+    subgraph usecases["Auto-Injected UseCases (생성자 주입)"]
         UC_Get[GetPickListsUseCase]
         UC_CreateL[CreatePickListUseCase]
         UC_UpdateL[UpdatePickListUseCase]
@@ -194,4 +194,4 @@ graph TD
 2. **Hilt Component Lifecycle**
    - `@InstallIn(SingletonComponent::class)`를 사용하는 `AppModule`은 데이터베이스 및 데이터 소스 컴포넌트를 **싱글톤**으로 생명주기 관리하여 중복 인스턴스 생성을 방지하고 자원을 효율적으로 보존합니다.
    - ViewModel은 `@HiltViewModel`을 사용해 안드로이드 시스템의 ViewModel 생명주기와 완벽하게 싱글톤 매핑되어 의존성을 안전하게 제공받습니다.
-```,StartLine:41,TargetContent:
+```
