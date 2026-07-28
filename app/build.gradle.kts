@@ -29,9 +29,9 @@ android {
     defaultConfig {
         applicationId = "com.devhjs.randompick"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 5
-        versionName = "1.3.0"
+        targetSdk = 36
+        versionCode = 6
+        versionName = "1.3.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders["adMobAppId"] = adMobAppId
